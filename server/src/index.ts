@@ -3,6 +3,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import multer from 'multer';
 import * as geminiService from './services/gemini.service';
+import fs from 'fs';
+import path from 'path';
+
 
 dotenv.config({ path: '../.env.local' });
 
@@ -71,6 +74,50 @@ app.post('/api/chat', async (req, res) => {
         res.json({ text: response.text });
     } catch (e: any) {
          res.status(500).json({ error: e.message });
+    }
+});
+
+app.post('/api/feedback', (req, res) => {
+    try {
+        const feedback = {
+            ...req.body,
+            timestamp: new Date().toISOString()
+        };
+
+        // Log to console (visible in Render logs)
+        console.log('--- NEW FEEDBACK RECEIVED ---');
+        console.log(JSON.stringify(feedback, null, 2));
+        console.log('-----------------------------');
+
+        // Append to local JSON file
+        const filePath = path.join(__dirname, '../feedback.json');
+        let allFeedback = [];
+        
+        if (fs.existsSync(filePath)) {
+            const content = fs.readFileSync(filePath, 'utf8');
+            allFeedback = JSON.parse(content || '[]');
+        }
+        
+        allFeedback.push(feedback);
+        fs.writeFileSync(filePath, JSON.stringify(allFeedback, null, 2));
+
+        res.json({ success: true });
+    } catch (e: any) {
+        console.error('Feedback Error:', e);
+        res.status(500).json({ error: 'Could not save feedback' });
+    }
+});
+
+app.get('/api/feedback', (req, res) => {
+    try {
+        const filePath = path.join(__dirname, '../feedback.json');
+        if (fs.existsSync(filePath)) {
+            const content = fs.readFileSync(filePath, 'utf8');
+            return res.json(JSON.parse(content || '[]'));
+        }
+        res.json([]);
+    } catch (e) {
+        res.status(500).json({ error: 'Could not read feedback' });
     }
 });
 
