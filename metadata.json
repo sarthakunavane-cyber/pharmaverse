@@ -1,0 +1,8 @@
+{
+  "name": "PharmaVerse",
+  "description": "An integrated suite of AI-powered tools for doctors, pharmacists, and patients, including a Drug-Herb Interaction Detector, Prescription Reader, Dose Calculator, and more. Designed to provide educational information and support healthcare decisions.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

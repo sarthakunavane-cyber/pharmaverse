@@ -1,0 +1,57 @@
+<div *ngIf="result" class="glass-panel  rounded-xl shadow-lg border-t-8 {{ getCategoryStyle(result.interactionCategory).borderColor }} overflow-hidden animate-fade-in mb-4">
+    <div class="p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <h3 class="text-xl font-bold text-gray-100  text-center sm:text-left mb-4 sm:mb-0">{{ result.interactingPair }}</h3>
+        <div class="px-4 py-2 rounded-full {{ getCategoryStyle(result.interactionCategory).textColor }} {{ getCategoryStyle(result.interactionCategory).bgColor }} font-bold text-sm flex items-center justify-center">
+            {{ getCategoryStyle(result.interactionCategory).title }}
+        </div>
+      </div>
+    </div>
+    
+    <div class="px-6 pb-6 space-y-6">
+      <div>
+        <h4 class="font-bold text-gray-100  mb-2">{{ translation.t('resultCard.summary') }}</h4>
+        <p class="text-gray-300 ">{{ result.summary }}</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="  p-4 rounded-lg text-center">
+          <h4 class="font-semibold text-sm text-gray-300  mb-1">{{ translation.t('resultCard.severity') }}</h4>
+          <p class="font-bold text-lg {{ getCategoryStyle(result.interactionCategory).textColor }}">{{ result.severity }}</p>
+        </div>
+        <div class="  p-4 rounded-lg text-center">
+          <h4 class="font-semibold text-sm text-gray-300  mb-1">{{ translation.t('resultCard.evidenceLevel') }}</h4>
+          <p class="font-bold text-lg text-gray-100 ">{{ result.evidenceLevel }}</p>
+        </div>
+        <div class="  p-4 rounded-lg">
+          <h4 class="font-semibold text-sm text-center text-gray-300  mb-2">{{ translation.t('resultCard.interactionScore') }}</h4>
+          <div class="flex items-center">
+            <span class="font-bold text-lg mr-3 {{ getCategoryStyle(result.interactionCategory).textColor }}">{{ result.interactionScore || 0 }}</span>
+            <div class="w-full bg-medical-blue/30  rounded-full h-2.5">
+                <div class="{{ getScoreColor(result.interactionScore || 0) }} h-2.5 rounded-full" [style.width]="(result.interactionScore || 0) + '%'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div>
+        <h4 class="font-bold text-gray-100  mb-2">{{ translation.t('resultCard.mechanism') }}</h4>
+        <p class="text-gray-300 ">{{ result.mechanism }}</p>
+      </div>
+  
+      <div>
+        <h4 class="font-bold text-gray-100  mb-2">{{ translation.t('resultCard.sideEffects') }}</h4>
+        <p class="text-gray-300 ">{{ result.sideEffects }}</p>
+      </div>
+      
+      <div *ngIf="result.alternatives && result.alternatives.trim() && (result.severity === Severity.Moderate || result.severity === Severity.Major)" 
+           class="glass-panel  p-4 rounded-lg border-l-4 border-green-400 dark:border-green-700">
+          <div class="flex items-center mb-2">
+              <h4 class="font-bold text-green-800 dark:text-green-200">🛡️ {{ translation.t('resultCard.saferAlternatives') }}</h4>
+          </div>
+          <p class="text-green-700 dark:text-green-300 text-sm">{{ result.alternatives }}</p>
+      </div>
+    </div>
+</div>
+
+

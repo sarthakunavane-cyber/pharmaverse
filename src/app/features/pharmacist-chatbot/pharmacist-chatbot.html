@@ -1,0 +1,57 @@
+<div class="max-w-2xl mx-auto h-[70vh] flex flex-col glass-panel rounded-2xl">
+    <div class="p-4 border-b dark:border-medical-cyan/30 text-center   rounded-t-2xl">
+        <h2 class="text-xl font-bold text-gray-100 ">{{ translation.t('pharmacistChatbot.title') }}</h2>
+        <p class="text-sm text-gray-500 ">{{ translation.t('pharmacistChatbot.subtitle') }}</p>
+    </div>
+    
+    <div #messagesContainer class="flex-1 p-4 overflow-y-auto space-y-4" aria-live="polite" aria-atomic="false">
+        <div *ngFor="let msg of messages" class="flex" [ngClass]="{'justify-end': msg.sender === 'user', 'justify-start': msg.sender === 'bot'}">
+            <div class="max-w-xs lg:max-w-md px-4 py-2 rounded-2xl" [ngClass]="msg.sender === 'user' ? 'bg-cyan-600 text-white' : 'bg-medical-blue/30  text-gray-100 '">
+                <p class="whitespace-pre-wrap">{{ msg.text }}</p>
+            </div>
+        </div>
+        
+        <div *ngIf="loading && messages.length > 0 && messages[messages.length-1].sender === 'user'" class="flex justify-start">
+            <div class="px-4 py-2 rounded-2xl bg-medical-blue/30  text-gray-100 ">
+                <div class="flex space-x-1 items-center h-4">
+                    <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+                    <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="p-4 border-t dark:border-medical-cyan/30 glass-panel  rounded-b-2xl">
+        <div class="flex items-center space-x-2">
+            <textarea
+                [(ngModel)]="input"
+                (keyup.enter)="handleSend()"
+                [placeholder]="isRecording ? translation.t('pharmacistChatbot.recording') : transcribing ? translation.t('pharmacistChatbot.transcribing') : translation.t('pharmacistChatbot.inputPlaceholder')"
+                class="flex-1 p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-cyan-500 glass-panel  text-white "
+                rows="1"
+                [disabled]="loading || isRecording || transcribing"
+            ></textarea>
+            
+            <button
+                (click)="isRecording ? stopRecording() : startRecording()"
+                class="p-3 rounded-full text-white transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:bg-gray-400 flex items-center justify-center"
+                [ngClass]="isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-cyan-500 hover:bg-cyan-600'"
+                [disabled]="loading || transcribing"
+            >
+                <!-- Mic Icon Placeholder -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mic"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+            </button>
+            <button
+                (click)="handleSend()"
+                [disabled]="!input.trim() || loading"
+                class="p-3 rounded-full text-white bg-cyan-500 hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:bg-gray-400 flex items-center justify-center"
+            >
+                <!-- Send Icon Placeholder -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+

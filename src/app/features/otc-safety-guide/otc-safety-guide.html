@@ -1,0 +1,55 @@
+<div class="max-w-4xl mx-auto glass-panel  p-6 rounded-2xl">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-gray-100 ">{{ translation.t('otcGuide.title') }}</h2>
+        <p class="mt-2 text-gray-300 ">{{ translation.t('otcGuide.subtitle') }}</p>
+    </div>
+
+    <div class="glass-panel  p-8 rounded-xl shadow-lg border border-medical-cyan/30 dark:border-medical-cyan/30 mb-8">
+        <div class="flex flex-col md:flex-row gap-4">
+            <input type="text" [(ngModel)]="drugName" (keyup.enter)="fetchGuide()"
+                [placeholder]="translation.t('otcGuide.drugPlaceholder')"
+                class="flex-1 px-4 py-3 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 glass-panel  text-white  text-lg"
+            />
+            <button (click)="fetchGuide()" [disabled]="!drugName.trim() || loading"
+                class="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold rounded-lg shadow-md transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 flex items-center justify-center">
+                <span *ngIf="loading">{{ translation.t('otcGuide.gettingGuide') }}</span>
+                <span *ngIf="!loading">{{ translation.t('otcGuide.getGuideButton') }}</span>
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="error" class="text-center text-red-500 mt-4 glass-panel  dark:text-red-300 p-3 rounded-lg">{{ error }}</div>
+
+    <div *ngIf="guide" class="glass-panel  p-8 rounded-xl shadow-lg border border-medical-cyan/30 dark:border-medical-cyan/30 mb-8 animate-fade-in">
+        <h3 class="text-2xl font-bold text-gray-100  mb-6 border-b pb-4">{{ translation.t('otcGuide.resultsTitle') }} <span class="text-green-600 dark:text-green-400 capitalize">{{ drugName }}</span></h3>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-6">
+                <div><h4 class="font-bold text-gray-200  mb-1">{{ translation.t('otcGuide.results.indications') }}</h4><p class="text-gray-300 ">{{ guide.indications }}</p></div>
+                <div class="bg-medical-blue/20  p-4 rounded-lg"><h4 class="font-bold text-red-800 dark:text-red-300 mb-1 flex items-center">⚠️ {{ translation.t('otcGuide.results.warnings') }}</h4><p class="text-red-700 dark:text-red-400 text-sm">{{ guide.warnings }}</p></div>
+                <div><h4 class="font-bold text-gray-200  mb-1">{{ translation.t('otcGuide.results.contraindications') }}</h4><p class="text-gray-300  text-sm">{{ guide.contraindications }}</p></div>
+            </div>
+            <div class="space-y-6">
+                <div class="glass-panel  p-4 rounded-lg"><h4 class="font-bold text-green-800 dark:text-green-300 mb-1 flex items-center">✅ {{ translation.t('otcGuide.results.safeDose') }}</h4><p class="text-green-700 dark:text-green-400 font-medium">{{ guide.safeDose }}</p></div>
+                <div class="glass-panel  p-4 rounded-lg"><h4 class="font-bold text-yellow-800 dark:text-yellow-300 mb-1 flex items-center">⚖️ {{ translation.t('otcGuide.results.maxDose') }}</h4><p class="text-yellow-700 dark:text-yellow-400 font-medium">{{ guide.maxDose }}</p></div>
+                <div><h4 class="font-bold text-gray-200  mb-1">{{ translation.t('otcGuide.results.sideEffects') }}</h4><p class="text-gray-300  text-sm">{{ guide.sideEffects }}</p></div>
+                <div><h4 class="font-bold text-gray-200  mb-1">{{ translation.t('otcGuide.results.interactions') }}</h4><p class="text-gray-300  text-sm">{{ guide.interactions }}</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5 Rules -->
+    <div class="mt-12 glass-panel  p-8 rounded-xl shadow-md border-t-4 border-yellow-400">
+        <h3 class="text-2xl font-bold text-center text-gray-100  mb-8">{{ translation.t('otcGuide.rulesTitle') }}</h3>
+        <div class="space-y-4">
+            <div *ngFor="let rule of rules; let i = index" class="flex items-start   p-4 rounded-lg">
+                <div class="text-2xl mr-4">{{ rule.emoji }}</div>
+                <div>
+                    <h4 class="font-bold text-gray-100 ">{{ i + 1 }}. {{ rule.title }}</h4>
+                    <p class="text-gray-300  text-sm mt-1">{{ rule.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

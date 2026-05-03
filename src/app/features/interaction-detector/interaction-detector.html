@@ -1,0 +1,82 @@
+<div class="max-w-4xl mx-auto glass-panel p-6 rounded-2xl">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-extrabold text-gray-100 ">{{ translation.t('interactionChecker.title') }}</h2>
+      <p class="mt-2 text-gray-300 ">{{ translation.t('interactionChecker.subtitle') }}</p>
+    </div>
+  
+    <div class="mb-6 flex flex-wrap justify-center border-b border-medical-cyan/30 dark:border-medical-cyan/30 glass-panel  rounded-t-lg shadow-sm">
+        <button *ngFor="let tab of tabs"
+            (click)="handleModeChange(tab.type)"
+            [class]="'px-4 py-3 text-sm font-semibold transition-colors duration-200 focus:outline-none ' + 
+            (interactionType === tab.type ? 'border-b-2 border-red-500 text-red-600' : 'text-gray-500  hover:text-red-500')">
+            {{ translation.t('interactionChecker.tabs.' + tab.labelKey) }}
+        </button>
+    </div>
+  
+    <div class="glass-panel  p-8 rounded-b-xl shadow-lg border border-medical-cyan/30 dark:border-medical-cyan/30 mb-8">
+      <form (ngSubmit)="handleFormSubmit()" class="space-y-6">
+        
+        <div *ngIf="interactionType === 'polypharmacy'" class="w-full">
+            <label class="block text-sm font-medium text-gray-200  mb-1">{{ translation.t('interactionChecker.polypharmacyLabel') }}</label>
+            <textarea
+                [(ngModel)]="polypharmacy" name="polypharmacy"
+                class="w-full h-32 px-4 py-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 transition-colors duration-300 glass-panel  text-white  placeholder-gray-500 dark:placeholder-gray-400 resize-none"
+                [placeholder]="translation.t('interactionChecker.polypharmacyPlaceholder')">
+            </textarea>
+        </div>
+
+        <div *ngIf="interactionType !== 'polypharmacy'" class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-200  mb-1">Drug 1</label>
+              <input
+                type="text"
+                [(ngModel)]="input1" name="input1"
+                class="w-full px-4 py-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 glass-panel  text-white "
+                placeholder="Enter item 1"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-200  mb-1">Drug 2 / Herb / Supplement</label>
+              <input
+                type="text"
+                [(ngModel)]="input2" name="input2"
+                class="w-full px-4 py-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500 glass-panel  text-white "
+                placeholder="Enter item 2"
+              />
+            </div>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="loading"
+          class="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:from-gray-400 disabled:to-gray-500 transition-all transform hover:scale-105"
+        >
+          <span *ngIf="loading">{{ translation.t('interactionChecker.checking') }}</span>
+          <span *ngIf="!loading">{{ translation.t('interactionChecker.checkButton') }}</span>
+        </button>
+      </form>
+    </div>
+  
+    <div *ngIf="loading" class="text-center text-gray-300 ">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
+        <p class="mt-2">{{ translation.t('common.loading') }}</p>
+    </div>
+  
+    <div *ngIf="error" class="text-center text-red-600 glass-panel  dark:text-red-300 p-4 rounded-lg">
+        <p>{{ error }}</p>
+    </div>
+  
+    <!-- Result Card -->
+    <div *ngIf="result && !isArrayResult">
+        <app-result-card [result]="result"></app-result-card>
+    </div>
+
+    <div *ngIf="result && isArrayResult" class="space-y-6">
+        <h3 class="text-2xl font-bold text-center text-gray-100 ">{{ translation.t('interactionChecker.polypharmacyResultsTitle') }}</h3>
+        <div *ngFor="let res of result">
+             <app-result-card [result]="res"></app-result-card>
+        </div>
+    </div>
+  </div>
+
+

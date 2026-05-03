@@ -1,0 +1,77 @@
+<div class="max-w-3xl mx-auto glass-panel  p-6 rounded-2xl">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-gray-100 ">{{ translation.t('doseCalculator.title') }}</h2>
+        <p class="mt-2 text-gray-300 ">{{ translation.t('doseCalculator.subtitle') }}</p>
+    </div>
+
+    <div class="glass-panel  p-8 rounded-xl shadow-lg border border-medical-cyan/30 dark:border-medical-cyan/30">
+        <form (ngSubmit)="handleSubmit()" class="space-y-6">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-100 ">{{ translation.t('doseCalculator.form.patientTitle') }}</h3>
+                <p class="text-sm text-gray-500 ">{{ translation.t('doseCalculator.form.patientSubtitle') }}</p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <input type="number" [(ngModel)]="details.age" name="age" [placeholder]="translation.t('doseCalculator.form.agePlaceholder')" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required />
+                    <input type="number" [(ngModel)]="details.weight" name="weight" [placeholder]="translation.t('doseCalculator.form.weightPlaceholder')" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required />
+                    <select [(ngModel)]="details.gender" name="gender" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required>
+                        <option value="Male">{{ translation.t('doseCalculator.form.genders.male') }}</option>
+                        <option value="Female">{{ translation.t('doseCalculator.form.genders.female') }}</option>
+                        <option value="Other">{{ translation.t('doseCalculator.form.genders.other') }}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                 <h3 class="text-lg font-semibold text-gray-100 ">{{ translation.t('doseCalculator.form.drugTitle') }}</h3>
+                 <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" [(ngModel)]="details.drug" name="drug" [placeholder]="translation.t('doseCalculator.form.drugPlaceholder')" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required />
+                    <input type="text" [(ngModel)]="details.indication" name="indication" [placeholder]="translation.t('doseCalculator.form.indicationPlaceholder')" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required />
+                    <select [(ngModel)]="details.renalStatus" name="renalStatus" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required>
+                        <option value="Normal">{{ translation.t('doseCalculator.form.status.normal') }}</option>
+                        <option value="Mild Impairment">{{ translation.t('doseCalculator.form.status.mild') }}</option>
+                        <option value="Moderate Impairment">{{ translation.t('doseCalculator.form.status.moderate') }}</option>
+                        <option value="Severe Impairment">{{ translation.t('doseCalculator.form.status.severe') }}</option>
+                    </select>
+                     <select [(ngModel)]="details.hepaticStatus" name="hepaticStatus" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required>
+                        <option value="Normal">{{ translation.t('doseCalculator.form.status.normal') }}</option>
+                        <option value="Mild Impairment">{{ translation.t('doseCalculator.form.status.mild') }}</option>
+                        <option value="Moderate Impairment">{{ translation.t('doseCalculator.form.status.moderate') }}</option>
+                        <option value="Severe Impairment">{{ translation.t('doseCalculator.form.status.severe') }}</option>
+                    </select>
+                 </div>
+            </div>
+
+            <button type="submit" [disabled]="loading" class="w-full flex justify-center items-center py-3 px-4 rounded-lg shadow-sm text-white bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 disabled:from-gray-400 disabled:to-gray-500">
+                <span *ngIf="loading">{{ translation.t('doseCalculator.calculating') }}</span>
+                <span *ngIf="!loading">{{ translation.t('doseCalculator.calculateButton') }}</span>
+            </button>
+        </form>
+    </div>
+    
+    <div *ngIf="loading" class="text-center mt-4">Loading...</div>
+    <div *ngIf="error" class="text-center text-red-600 glass-panel p-3 rounded-md mt-4">{{ error }}</div>
+
+    <div *ngIf="result" class="mt-8 glass-panel  p-6 rounded-xl shadow-lg border border-medical-cyan/30 dark:border-medical-cyan/30">
+        <h3 class="text-2xl font-bold text-center text-gray-100  mb-4">{{ translation.t('doseCalculator.resultsTitle') }}</h3>
+        <div class="space-y-4">
+            <div class="glass-panel  p-4 rounded-lg">
+                <h4 class="font-semibold text-green-800 dark:text-green-200">{{ translation.t('doseCalculator.results.recommended') }}</h4>
+                <p class="text-green-900 dark:text-green-100 text-lg font-bold">{{ result.recommendedDose }}</p>
+            </div>
+            <div class="glass-panel  p-4 rounded-lg">
+                <h4 class="font-semibold text-yellow-800 dark:text-yellow-200">{{ translation.t('doseCalculator.results.max') }}</h4>
+                <p class="text-yellow-900 dark:text-yellow-100 text-lg font-bold">{{ result.maxSafeDose }}</p>
+            </div>
+            <div class="glass-panel  p-4 rounded-lg border-l-4 border-red-500 flex items-start">
+                <div class="w-6 h-6 mr-3 text-red-600 dark:text-red-300 flex-shrink-0">
+                   <!-- Icon Alert Placeholder -->
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <div>
+                    <h4 class="font-bold text-red-800 dark:text-red-200">{{ translation.t('doseCalculator.results.notes') }}</h4>
+                    <p class="text-red-700 dark:text-red-200 mt-1">{{ result.adjustmentNotes }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,63 @@
+<header class="bg-medical-blue/30 backdrop-blur-md shadow-neon-cyan sticky top-0 z-10 border-b border-medical-cyan/30 transition-colors duration-300">
+    <div class="container mx-auto px-4 py-3 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between">
+        <div class="flex items-center mb-3 sm:mb-0">
+          
+          <button *ngIf="!isHome" (click)="handleGoHome()"
+            class="mr-3 p-2 rounded-full text-gray-600  hover:glass-panel  hover:text-white dark:hover:text-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-teal-500"
+            [attr.aria-label]="translation.t('header.goBack')">
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left "><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          </button>
+  
+          <div class="flex items-center cursor-pointer group" (click)="handleGoHome()">
+            <div class="p-1.5 rounded-full bg-gradient-to-tr from-teal-500 to-cyan-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-bold text-white  ml-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">{{ translation.t('header.title') }}</h1>
+          </div>
+        </div>
+        
+        <div class="flex items-center space-x-2 sm:space-x-4">
+          <nav class="flex flex-wrap justify-center sm:justify-end space-x-2 sm:space-x-4">
+              <button *ngFor="let page of navLinks"
+                  [routerLink]="'/' + page"
+                  routerLinkActive="bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow-md font-bold"
+                  [routerLinkActiveOptions]="{exact: true}"
+                  class="px-3 py-2 text-sm sm:text-base rounded-md transition-all duration-300 transform hover:scale-105 text-gray-600  hover:glass-panel  font-medium">
+                  {{ translation.t('nav.' + page) }}
+              </button>
+          </nav>
+          
+          <div class="relative flex items-center">
+            <select
+                [value]="translation.language$ | async"
+                (change)="onLanguageChange($event)"
+                class="appearance-none glass-panel  border border-gray-300 dark:border-gray-600 rounded-md py-2 pl-3 pr-8 text-sm font-medium text-white  hover:bg-medical-blue/50  focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                [attr.aria-label]="translation.t('language.select')">
+                <option value="en">{{ translation.t('languages.en') }}</option>
+                <option value="hi">{{ translation.t('languages.hi') }}</option>
+                <option value="mr">{{ translation.t('languages.mr') }}</option>
+            </select>
+             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white ">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+              </div>
+          </div>
+  
+          <button
+              (click)="toggleTheme()"
+              class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:glass-panel  focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 focus:ring-teal-500 transition-colors"
+              aria-label="Toggle Dark Mode">
+              <span *ngIf="(theme.isDark$ | async) === false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+              </span>
+              <span *ngIf="(theme.isDark$ | async) === true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+              </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+

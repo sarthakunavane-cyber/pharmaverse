@@ -1,0 +1,88 @@
+<div class="max-w-6xl mx-auto glass-panel  p-6 rounded-2xl">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-extrabold text-gray-100 ">{{ translation.t('clinicalTrialFinder.title') }}</h2>
+        <p class="mt-2 text-gray-300 ">{{ translation.t('clinicalTrialFinder.subtitle') }}</p>
+    </div>
+
+    <!-- Search Section -->
+    <div class="glass-panel  p-6 rounded-xl shadow-lg border border-medical-cyan/30 dark:border-medical-cyan/30 mb-8">
+        <h3 class="text-lg font-bold text-gray-100  mb-4">{{ translation.t('clinicalTrialFinder.filters.title') }}</h3>
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex-grow">
+                <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="handleSearch()"
+                    [placeholder]="translation.t('clinicalTrialFinder.filters.searchPlaceholder')"
+                    class="w-full px-4 py-3 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg focus:ring-cyan-500 focus:border-cyan-500 glass-panel  text-white " />
+            </div>
+            
+            <div class="flex gap-2">
+                <select [(ngModel)]="phaseFilter" class="px-4 py-3 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg focus:ring-cyan-500 disabled:opacity-50 min-w-[120px] glass-panel  text-white ">
+                    <option value="all">{{ translation.t('clinicalTrialFinder.filters.allPhases') }}</option>
+                    <option value="Phase 1">Phase 1</option>
+                    <option value="Phase 2">Phase 2</option>
+                    <option value="Phase 3">Phase 3</option>
+                </select>
+                <select [(ngModel)]="statusFilter" class="px-4 py-3 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg focus:ring-cyan-500 disabled:opacity-50 min-w-[140px] glass-panel  text-white ">
+                    <option value="all">{{ translation.t('clinicalTrialFinder.filters.allStatus') }}</option>
+                    <option value="Recruiting">Recruiting</option>
+                    <option value="Active, not recruiting">Active</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+            
+            <button (click)="handleSearch()" [disabled]="!searchQuery.trim() || loading"
+                class="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold rounded-lg transition-transform focus:outline-none focus:ring-2 focus:ring-cyan-500 transform hover:scale-105 disabled:opacity-50 disabled:scale-100 min-w-[120px] flex items-center justify-center">
+                <span *ngIf="loading">{{ translation.t('clinicalTrialFinder.searching') }}</span>
+                <span *ngIf="!loading">{{ translation.t('clinicalTrialFinder.searchButton') }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div *ngIf="loading" class="text-center text-gray-300  my-8">
+        <!-- Search icon spinner -->
+        <svg class="animate-spin h-8 w-8 text-cyan-600 mx-auto mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <p>{{ translation.t('common.loading') }}</p>
+    </div>
+
+    <div *ngIf="error" class="text-center text-red-600 glass-panel  p-4 rounded-lg my-8 font-semibold">
+        {{ error }}
+    </div>
+
+    <div *ngIf="filteredTrials">
+        <h3 class="text-2xl font-bold text-gray-100  mb-6 border-b border-medical-cyan/30 dark:border-medical-cyan/30 pb-2">
+            {{ translation.t('clinicalTrialFinder.resultsTitle') }}
+            <span class="text-lg font-normal text-gray-500 ml-2">({{ filteredTrials.length }} results)</span>
+        </h3>
+        
+        <div *ngIf="filteredTrials.length === 0" class="text-center glass-panel  p-8 rounded-xl shadow-sm border border-medical-cyan/30 dark:border-medical-cyan/30">
+            <p class="text-lg text-gray-300 ">{{ translation.t('clinicalTrialFinder.noResults') }}</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+            <div *ngFor="let trial of filteredTrials" class="glass-panel  rounded-xl shadow-lg border border-medical-cyan/30 dark:border-medical-cyan/30 overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300">
+                <div class="p-5 flex-grow">
+                     <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full glass-panel text-blue-800  dark:text-blue-300 mb-3">{{ trial.phase }}</span>
+                     <h4 class="font-bold text-lg text-white  mb-2 line-clamp-2" [title]="trial.title">{{ trial.title }}</h4>
+                     <p class="text-sm text-gray-300  mb-4 line-clamp-3">{{ trial.summary }}</p>
+                     
+                     <div class="space-y-2 text-sm">
+                         <div class="flex items-start text-gray-300 ">
+                             <span class="font-semibold text-gray-100  w-24 flex-shrink-0">Status:</span>
+                             <span [ngClass]="{'text-green-600 dark:text-green-400 font-medium': trial.status.includes('Recruiting'), 'text-amber-600 dark:text-amber-400 font-medium': trial.status.includes('Active')}">{{ trial.status }}</span>
+                         </div>
+                         <div class="flex items-start text-gray-300 ">
+                             <span class="font-semibold text-gray-100  w-24 flex-shrink-0">Location:</span>
+                             <span>{{ trial.location }}</span>
+                         </div>
+                         <div class="flex items-start text-gray-300 ">
+                             <span class="font-semibold text-gray-100  w-24 flex-shrink-0">Sponsor:</span>
+                             <span class="line-clamp-1">{{ trial.sponsor }}</span>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,39 @@
+<div class="max-w-2xl mx-auto   p-8 rounded-2xl shadow-xl border border-medical-cyan/30 dark:border-medical-cyan/30">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-gray-100 ">Accessible Reader</h2>
+        <p class="mt-2 text-gray-300 ">Convert complex medical text to speech</p>
+    </div>
+
+    <textarea [(ngModel)]="textToSpeak" rows="6"
+        placeholder="Paste your medical text or prescription instructions here..."
+        class="w-full p-4 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 glass-panel  text-white  shadow-sm transition-shadow">
+    </textarea>
+
+    <div class="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <!-- Voice selector simulator (Native angular simplified) -->
+        <select [(ngModel)]="selectedVoice" class="w-full sm:w-auto p-3 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg bg-medical-blue/20  text-gray-100  focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none shadow-sm cursor-pointer">
+            <option *ngIf="voices.length === 0" [ngValue]="null">Default System Voice</option>
+            <option *ngFor="let voice of voices" [ngValue]="voice">{{ voice.name }} ({{ voice.lang }})</option>
+        </select>
+        
+        <div class="flex gap-3 w-full sm:w-auto">
+             <button [disabled]="isSpeaking || !textToSpeak.trim()" (click)="handleSpeak()"
+                 class="flex-1 sm:flex-none px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow disabled:opacity-50 flex justify-center items-center gap-2 transition-colors">
+                 <span>🔈 Speak</span>
+             </button>
+             <button [disabled]="!isSpeaking" (click)="handleStop()"
+                 class="flex-1 sm:flex-none px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg shadow disabled:opacity-50 flex justify-center items-center gap-2 transition-colors">
+                 <span>⏹️ Stop</span>
+             </button>
+        </div>
+    </div>
+    
+    <div class="mt-8 pt-6 border-t border-medical-cyan/30 dark:border-medical-cyan/30">
+        <div class="glass-panel  p-4 rounded-lg flex items-start gap-4">
+            <span class="text-2xl">💡</span>
+            <p class="text-sm text-blue-800 dark:text-blue-300">{{ translation.t('symptomChecker.disclaimerTitle') }}: This tool is an accessibility aid and does not provide interpretation of medical instructions.</p>
+        </div>
+    </div>
+</div>
+
+

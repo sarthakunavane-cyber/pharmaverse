@@ -1,0 +1,79 @@
+<div class="max-w-5xl mx-auto glass-panel  p-6 rounded-2xl">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-gray-100 ">{{ translation.t('livePharmacist.title') }}</h2>
+        <p class="mt-2 text-gray-300 ">{{ translation.t('livePharmacist.subtitle') }}</p>
+    </div>
+
+    <!-- Search Box -->
+    <div class="glass-panel  p-6 rounded-xl shadow-lg border border-medical-cyan/30 dark:border-medical-cyan/30 mb-8">
+        <div class="flex justify-center mb-4">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" (click)="searchMethod = 'manual'"
+                    [class]="'px-4 py-2 text-sm font-medium border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-l-lg hover:bg-medical-blue/20 hover:text-rose-700 focus:z-10 focus:ring-2 focus:ring-rose-500 ' + (searchMethod === 'manual' ? 'glass-panel text-rose-700  dark:text-rose-300' : 'glass-panel text-white  ')">
+                    {{ translation.t('livePharmacist.search.searchByCity') }}
+                </button>
+                <button type="button" (click)="searchMethod = 'location'; requestLocation()"
+                    [class]="'px-4 py-2 text-sm font-medium border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-r-lg hover:bg-medical-blue/20 hover:text-rose-700 focus:z-10 focus:ring-2 focus:ring-rose-500 ' + (searchMethod === 'location' ? 'glass-panel text-rose-700  dark:text-rose-300' : 'glass-panel text-white  ')">
+                    {{ translation.t('livePharmacist.search.useLocation') }}
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="searchMethod === 'manual'" class="flex gap-2">
+            <input type="text" [(ngModel)]="locationSearchQuery" (keyup.enter)="handleSearch()"
+                [placeholder]="translation.t('livePharmacist.search.placeholder')"
+                class="flex-1 px-4 py-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg focus:ring-rose-500 focus:border-rose-500 glass-panel  text-white " />
+            <button (click)="handleSearch()" [disabled]="!locationSearchQuery.trim() || loading"
+                class="px-6 py-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-lg shadow-sm transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 disabled:opacity-50">
+                {{ translation.t('common.search') }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div *ngIf="loading" class="flex justify-center p-8">
+        <svg class="animate-spin h-8 w-8 text-rose-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+    </div>
+
+    <div *ngIf="!loading" class="grid md:grid-cols-2 gap-6">
+        <div *ngFor="let p of filteredPharmacists" class="glass-panel  rounded-xl shadow-md border border-medical-cyan/30 dark:border-medical-cyan/30 p-6 flex flex-col hover:shadow-lg transition-shadow">
+            <div class="flex items-start">
+                <img [src]="p.image" [alt]="p.name" class="w-20 h-20 rounded-full border-4 border-rose-100 dark:border-rose-900 object-cover" />
+                <div class="ml-4 flex-1">
+                    <h3 class="text-xl font-bold text-white ">{{ p.name }}</h3>
+                    <p class="text-rose-600 dark:text-rose-400 text-sm font-medium">{{ p.qualifications }}</p>
+                    <div class="flex items-center mt-2 text-sm text-gray-500  space-x-4">
+                        <span class="flex items-center">⭐ {{ p.rating }}</span>
+                        <span class="flex items-center">💼 {{ p.experience }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 pt-4 border-t border-medical-cyan/30 dark:border-medical-cyan/30 flex-1 space-y-2 text-sm">
+                <div class="flex justify-between">
+                    <span class="text-gray-500 ">Languages:</span>
+                    <span class="font-medium text-white ">{{ p.languages.join(', ') }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500 ">Availability:</span>
+                    <span [ngClass]="p.availability.includes('Now') ? 'text-green-600 dark:text-green-400 font-bold' : 'text-amber-600 dark:text-amber-400 font-bold'">{{ p.availability }}</span>
+                </div>
+                 <div class="flex justify-between">
+                    <span class="text-gray-500 ">Fee:</span>
+                    <span class="font-medium text-white ">{{ p.cost }}</span>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex space-x-3">
+                <button class="flex-1 glass-panel  text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 py-2 rounded-lg font-semibold hover:glass-panel dark:hover:bg-rose-900/50 transition-colors">
+                    {{ translation.t('livePharmacist.chatButton') }}
+                </button>
+                <button class="flex-1 bg-rose-600 text-white py-2 rounded-lg font-semibold hover:bg-rose-700 transition-colors shadow-sm">
+                    {{ translation.t('livePharmacist.videoCallButton') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

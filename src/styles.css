@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles can go here */
+html, body { height: 100%; overflow-x: hidden; }
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  color: #e2e8f0; 
+  background: linear-gradient(-45deg, #0a192f, #1a0b2e, #002b36, #112240, #0b0f19, #23103a);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* 3D and Glassmorphism Utilities */
+.glass-panel {
+  @apply bg-medical-blue/40 backdrop-blur-md border border-medical-cyan/20 shadow-holographic;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Base transparent layers to let the 3D canvas show through */
+.transparent-bg {
+  background: transparent !important;
+}
+
+/* Gradient Background */
+.bg-gradient-animate {
+  background: linear-gradient(-45deg, #0a192f, #1a0b2e, #002b36, #112240, #0b0f19, #23103a);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
