@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +31,7 @@ export class ClinicalTrialFinder {
     this.trials = null;
 
     try {
-        const res = await firstValueFrom(this.http.post<any>('http://localhost:3000/api/chat', { 
+        const res = await firstValueFrom(this.http.post<any>(`${environment.apiUrl}/chat`, { 
             prompt: `Find 3 real clinical trials in India for: ${this.searchQuery}. Language: ${this.translation.language}. Return JSON array of objects with: title, phase, status, location, sponsor, summary.`, 
             language: this.translation.language 
         }));

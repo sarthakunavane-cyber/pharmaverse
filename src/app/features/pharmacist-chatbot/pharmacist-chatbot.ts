@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -55,7 +56,7 @@ export class PharmacistChatbot implements OnInit {
 
     try {
       // Direct call to express backend
-      const res = await firstValueFrom(this.http.post<{text: string}>('http://localhost:3000/api/chat', { prompt: userPrompt, language: this.translation.language }));
+      const res = await firstValueFrom(this.http.post<{text: string}>(`${environment.apiUrl}/chat`, { prompt: userPrompt, language: this.translation.language }));
       if (res?.text) {
         this.messages.push({ id: 'bot-' + Date.now(), text: res.text, sender: 'bot' });
       }

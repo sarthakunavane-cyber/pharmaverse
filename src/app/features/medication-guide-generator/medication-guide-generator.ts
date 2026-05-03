@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -28,7 +29,7 @@ export class MedicationGuideGenerator {
     this.guide = null;
     
     try {
-        const res = await firstValueFrom(this.http.post<any>('http://localhost:3000/api/chat', { 
+        const res = await firstValueFrom(this.http.post<any>(`${environment.apiUrl}/chat`, { 
             prompt: `Generate a simplified Patient Medication Guide for ${this.drugName}. Language: ${this.translation.language}. Return JSON with: title, overview, directions, missedDose, interactions, sideEffects, storage.`, 
             language: this.translation.language 
         }));

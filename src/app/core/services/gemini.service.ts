@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -6,7 +7,7 @@ import { InteractionResult, PrescriptionAnalysisResult, SymptomAnalysisResult } 
 @Injectable({ providedIn: 'root' })
 export class GeminiService {
   http = inject(HttpClient);
-  baseUrl = 'http://localhost:3000/api';
+  baseUrl = environment.apiUrl;
 
   async fetchDrugHerbInteraction(drugName: string, herbName: string, language: string): Promise<InteractionResult> {
     const res = await firstValueFrom(this.http.post<InteractionResult>(`${this.baseUrl}/interactions/herb`, { drugName, herbName, language }));

@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -29,7 +30,7 @@ export class OtcSafetyGuide {
     this.guide = null;
     
     try {
-        const res = await firstValueFrom(this.http.post<any>('http://localhost:3000/api/chat', { 
+        const res = await firstValueFrom(this.http.post<any>(`${environment.apiUrl}/chat`, { 
             prompt: `Provide OTC Safety Guide for ${this.drugName}. Language: ${this.translation.language}. Return JSON with: indications, warnings, safeDose, maxDose, contraindications, sideEffects, interactions.`, 
             language: this.translation.language 
         }));

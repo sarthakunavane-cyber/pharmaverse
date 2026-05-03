@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +35,7 @@ export class DoseCalculator {
     this.error = null;
     this.result = null;
     try {
-        const res = await firstValueFrom(this.http.post<any>('http://localhost:3000/api/chat', { 
+        const res = await firstValueFrom(this.http.post<any>(`${environment.apiUrl}/chat`, { 
             prompt: `Calculate safe dosage for drug: ${this.details.drug}, Age: ${this.details.age}, Weight: ${this.details.weight}kg, Gender: ${this.details.gender}, Indication: ${this.details.indication}, Renal: ${this.details.renalStatus}, Hepatic: ${this.details.hepaticStatus}. Return JSON with: recommendedDose, maxSafeDose, adjustmentNotes.`, 
             language: this.translation.language 
         }));

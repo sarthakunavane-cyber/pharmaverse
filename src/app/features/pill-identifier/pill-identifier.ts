@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -50,7 +51,7 @@ export class PillIdentifier {
     this.error = null;
     this.pillData = null;
     try {
-       const res = await firstValueFrom(this.http.post<any>('http://localhost:3000/api/chat', { 
+       const res = await firstValueFrom(this.http.post<any>(`${environment.apiUrl}/chat`, { 
             prompt: `Identify this pill from the image. Language: ${this.translation.language}. Return JSON with: name, dosage, description, manufacturer.`, 
             language: this.translation.language,
             // Actual image implementation needs multi-part processing in express, simulating for UI sync
