@@ -15,23 +15,12 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
 // Connect to MongoDB
-// Checking multiple possible names in case of a small spelling mistake
 const MONGODB_URI = process.env['MONGODB_URI'] || 
-                    process.env['MONGODB_URL'] || 
-                    process.env['mongodb_uri'] || 
-                    process.env['MANGODB_URL'] ||
-                    process.env['MONGODB_URL_GROUP']; // Common if using groups
+                    "mongodb+srv://sarthakunavanel_db_user:S6u3lc0RfyVubVHt@cluster0.37ywqew.mongodb.net/?appName=Cluster0";
 
-if (!MONGODB_URI) {
-    console.error('CRITICAL ERROR: No database connection link found in Render settings!');
-    console.log('Available environment variables:', Object.keys(process.env).filter(k => k.includes('MONGO') || k.includes('DB')));
-} else {
-    console.log('🚀 Attempting to connect to MongoDB...');
-    const maskedUri = MONGODB_URI.replace(/:([^@]+)@/, ':****@');
-    console.log(`Using link starting with: ${maskedUri.substring(0, 30)}...`);
-}
+console.log('🚀 Attempting to connect to MongoDB Atlas...');
 
-mongoose.connect(MONGODB_URI || 'mongodb://localhost:27017/pharmaverse')
+mongoose.connect(MONGODB_URI)
     .then(() => console.log('✅✅✅ SUCCESS: Connected to MongoDB Atlas!'))
     .catch(err => {
         console.error('❌ DATABASE CONNECTION ERROR:');
