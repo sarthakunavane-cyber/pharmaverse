@@ -15,6 +15,12 @@ import { Educational } from './features/educational/educational';
 import { DoctorsCorner } from './features/doctors-corner/doctors-corner';
 import { References } from './features/references/references';
 import { Feedback } from './features/feedback/feedback';
+import { Admin } from './features/admin/admin';
+import { Auth } from './features/auth/auth';
+import { Profile } from './features/profile/profile';
+
+
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -34,6 +40,11 @@ export const routes: Routes = [
     { path: 'doctors-corner', component: DoctorsCorner },
     { path: 'references', component: References },
     { path: 'feedback', component: Feedback },
+    { path: 'admin', component: Admin },
+    { path: 'auth', component: Auth },
+    { path: 'profile', component: Profile },
     { path: '**', redirectTo: 'home' }
+
+
 ];
 

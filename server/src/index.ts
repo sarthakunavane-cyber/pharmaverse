@@ -2,10 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import multer from 'multer';
+import mongoose from 'mongoose';
 import * as geminiService from './services/gemini.service';
-import fs from 'fs';
-import path from 'path';
-
+import * as authService from './services/auth.service';
+import { User } from './models/User';
+import { Feedback } from './models/Feedback';
 
 dotenv.config({ path: '../.env.local' });
 
@@ -13,16 +14,80 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
+// Connect to MongoDB
+const MONGODB_URI = process.env['MONGODB_URI'] || 'mongodb://localhost:27017/pharmaverse';
+mongoose.connect(MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
 const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } });
 
+// Middleware to check auth
+const authenticate = (req: any, res: any, next: any) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) return next(); 
+
+    const decoded = authService.verifyToken(token);
+    if (decoded) req.user = decoded;
+    next();
+};
+
+app.use(authenticate);
+
+async function saveToHistory(userId: string, type: string, data: any) {
+    try {
+        await User.findByIdAndUpdate(userId, {
+            $push: {
+                history: { type, data, timestamp: new Date() }
+            }
+        });
+    } catch (e) {
+        console.error('History Error:', e);
+    }
+}
+
+// Auth Routes
+app.post('/api/auth/register', async (req, res) => {
+    try {
+        const { email, password, name } = req.body;
+        const result = await authService.register(email, password, name);
+        res.json(result);
+    } catch (e: any) {
+        res.status(400).json({ error: e.message });
+    }
+});
+
+app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const result = await authService.login(email, password);
+        res.json(result);
+    } catch (e: any) {
+        res.status(400).json({ error: e.message });
+    }
+});
+
+app.get('/api/user/history', async (req: any, res) => {
+    if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+    try {
+        const user = await User.findById(req.user.id);
+        res.json(user?.history || []);
+    } catch (e) {
+        res.status(500).json({ error: 'Could not fetch history' });
+    }
+});
+
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok' });
+    res.json({ status: 'ok', database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected' });
 });
 
 app.post('/api/interactions/herb', async (req, res) => {
     try {
         const { drugName, herbName, language } = req.body;
         const result = await geminiService.fetchDrugHerbInteraction(drugName, herbName, language);
+        if ((req as any).user) {
+            await saveToHistory((req as any).user.id, 'herb-interaction', { drugName, herbName, result });
+        }
         res.json(result);
     } catch (e: any) {
         res.status(500).json({ error: e.message });
@@ -33,6 +98,9 @@ app.post('/api/interactions/drug', async (req, res) => {
     try {
         const { drug1, drug2, language } = req.body;
         const result = await geminiService.fetchDrugDrugInteraction(drug1, drug2, language);
+        if ((req as any).user) {
+            await saveToHistory((req as any).user.id, 'drug-interaction', { drug1, drug2, result });
+        }
         res.json(result);
     } catch (e: any) {
         res.status(500).json({ error: e.message });
@@ -43,6 +111,9 @@ app.post('/api/prescription/extract', async (req, res) => {
     try {
         const { imageData, mimeType, language } = req.body;
         const result = await geminiService.extractPrescriptionDetails(imageData, mimeType, language);
+        if ((req as any).user) {
+            await saveToHistory((req as any).user.id, 'prescription', { result });
+        }
         res.json(result);
     } catch (e: any) {
         res.status(500).json({ error: e.message });
@@ -53,6 +124,9 @@ app.post('/api/symptoms/analyze', async (req, res) => {
     try {
         const { symptoms, language } = req.body;
         const result = await geminiService.analyzeSymptoms(symptoms, language);
+        if ((req as any).user) {
+            await saveToHistory((req as any).user.id, 'symptoms', { symptoms, result });
+        }
         res.json(result);
     } catch (e: any) {
         res.status(500).json({ error: e.message });
@@ -62,8 +136,6 @@ app.post('/api/symptoms/analyze', async (req, res) => {
 app.post('/api/chat', async (req, res) => {
     try {
         const { prompt, language } = req.body;
-        // The original logic created a chat session. We can just use the generative ai directly or manage session state.
-        // For simplicity hitting textModel directly:
         const { GoogleGenAI } = require("@google/genai");
         const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY as string });
         
@@ -77,47 +149,25 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 
-app.post('/api/feedback', (req, res) => {
+app.post('/api/feedback', async (req, res) => {
     try {
-        const feedback = {
+        const feedback = new Feedback({
             ...req.body,
-            timestamp: new Date().toISOString()
-        };
-
-        // Log to console (visible in Render logs)
-        console.log('--- NEW FEEDBACK RECEIVED ---');
-        console.log(JSON.stringify(feedback, null, 2));
-        console.log('-----------------------------');
-
-        // Append to local JSON file
-        const filePath = path.join(__dirname, '../feedback.json');
-        let allFeedback = [];
-        
-        if (fs.existsSync(filePath)) {
-            const content = fs.readFileSync(filePath, 'utf8');
-            allFeedback = JSON.parse(content || '[]');
-        }
-        
-        allFeedback.push(feedback);
-        fs.writeFileSync(filePath, JSON.stringify(allFeedback, null, 2));
-
+            timestamp: new Date()
+        });
+        await feedback.save();
         res.json({ success: true });
     } catch (e: any) {
-        console.error('Feedback Error:', e);
         res.status(500).json({ error: 'Could not save feedback' });
     }
 });
 
-app.get('/api/feedback', (req, res) => {
+app.get('/api/feedback', async (req, res) => {
     try {
-        const filePath = path.join(__dirname, '../feedback.json');
-        if (fs.existsSync(filePath)) {
-            const content = fs.readFileSync(filePath, 'utf8');
-            return res.json(JSON.parse(content || '[]'));
-        }
-        res.json([]);
+        const feedbacks = await Feedback.find().sort({ timestamp: -1 });
+        res.json(feedbacks);
     } catch (e) {
-        res.status(500).json({ error: 'Could not read feedback' });
+        res.status(500).json({ error: 'Could not fetch feedback' });
     }
 });
 

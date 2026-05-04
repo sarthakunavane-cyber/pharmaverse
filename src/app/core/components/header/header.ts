@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { TranslationService } from '../../services/translation.service';
 import { ThemeService } from '../../services/theme.service';
+import { AuthService } from '../../services/auth.service';
 import { NAV_LINKS } from '../../constants/constants';
+
 
 @Component({
   selector: 'app-header',
@@ -14,7 +16,9 @@ import { NAV_LINKS } from '../../constants/constants';
 export class Header {
   translation = inject(TranslationService);
   theme = inject(ThemeService);
+  auth = inject(AuthService);
   router = inject(Router);
+
 
   navLinks = NAV_LINKS;
 

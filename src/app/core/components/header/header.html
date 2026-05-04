@@ -56,6 +56,23 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
               </span>
           </button>
+
+          <!-- User Auth Section -->
+          <div class="ml-2 pl-2 border-l border-gray-700 flex items-center">
+            <button *ngIf="!auth.currentUser()" routerLink="/auth"
+                    class="px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 text-white text-sm font-bold rounded-full hover:scale-105 transition shadow-lg">
+                Login
+            </button>
+            <div *ngIf="auth.currentUser()" class="flex items-center gap-3">
+                <div class="hidden sm:block text-right">
+                    <p class="text-xs text-gray-400 font-medium">Hello,</p>
+                    <p class="text-sm text-white font-bold">{{ auth.currentUser()?.name }}</p>
+                </div>
+                <button (click)="auth.logout()" class="p-2 glass-panel rounded-full hover:text-red-400 transition" title="Logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
