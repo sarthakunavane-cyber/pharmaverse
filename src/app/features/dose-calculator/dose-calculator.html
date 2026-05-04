@@ -9,33 +9,54 @@
             <div>
                 <h3 class="text-lg font-semibold text-gray-100 ">{{ translation.t('doseCalculator.form.patientTitle') }}</h3>
                 <p class="text-sm text-gray-500 ">{{ translation.t('doseCalculator.form.patientSubtitle') }}</p>
-                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <input type="number" [(ngModel)]="details.age" name="age" [placeholder]="translation.t('doseCalculator.form.agePlaceholder')" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required />
-                    <input type="number" [(ngModel)]="details.weight" name="weight" [placeholder]="translation.t('doseCalculator.form.weightPlaceholder')" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required />
-                    <select [(ngModel)]="details.gender" name="gender" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required>
-                        <option value="Male">{{ translation.t('doseCalculator.form.genders.male') }}</option>
-                        <option value="Female">{{ translation.t('doseCalculator.form.genders.female') }}</option>
-                        <option value="Other">{{ translation.t('doseCalculator.form.genders.other') }}</option>
-                    </select>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300">Age (Years)</label>
+                        <input type="number" [(ngModel)]="details.age" name="age" [placeholder]="translation.t('doseCalculator.form.agePlaceholder')" class="w-full p-3 border border-medical-cyan/30 rounded-xl glass-panel text-white focus:border-medical-cyan outline-none transition" required />
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300">Weight (kg)</label>
+                        <input type="number" [(ngModel)]="details.weight" name="weight" [placeholder]="translation.t('doseCalculator.form.weightPlaceholder')" class="w-full p-3 border border-medical-cyan/30 rounded-xl glass-panel text-white focus:border-medical-cyan outline-none transition" required />
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300">Gender</label>
+                        <select [(ngModel)]="details.gender" name="gender" class="w-full p-3 border border-medical-cyan/30 rounded-xl glass-panel text-white focus:border-medical-cyan outline-none transition" required>
+                            <option value="Male">{{ translation.t('doseCalculator.form.genders.male') }}</option>
+                            <option value="Female">{{ translation.t('doseCalculator.form.genders.female') }}</option>
+                            <option value="Other">{{ translation.t('doseCalculator.form.genders.other') }}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div>
                  <h3 class="text-lg font-semibold text-gray-100 ">{{ translation.t('doseCalculator.form.drugTitle') }}</h3>
-                 <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input type="text" [(ngModel)]="details.drug" name="drug" [placeholder]="translation.t('doseCalculator.form.drugPlaceholder')" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required />
-                    <input type="text" [(ngModel)]="details.indication" name="indication" [placeholder]="translation.t('doseCalculator.form.indicationPlaceholder')" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required />
-                    <select [(ngModel)]="details.renalStatus" name="renalStatus" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required>
-                        <option value="Normal">{{ translation.t('doseCalculator.form.status.normal') }}</option>
-                        <option value="Mild Impairment">{{ translation.t('doseCalculator.form.status.mild') }}</option>
-                        <option value="Moderate Impairment">{{ translation.t('doseCalculator.form.status.moderate') }}</option>
-                        <option value="Severe Impairment">{{ translation.t('doseCalculator.form.status.severe') }}</option>
-                    </select>
-                     <select [(ngModel)]="details.hepaticStatus" name="hepaticStatus" class="w-full p-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-md glass-panel  text-white " required>
-                        <option value="Normal">{{ translation.t('doseCalculator.form.status.normal') }}</option>
-                        <option value="Mild Impairment">{{ translation.t('doseCalculator.form.status.mild') }}</option>
-                        <option value="Moderate Impairment">{{ translation.t('doseCalculator.form.status.moderate') }}</option>
-                        <option value="Severe Impairment">{{ translation.t('doseCalculator.form.status.severe') }}</option>
-                    </select>
+                 <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300">Medication Name</label>
+                        <input type="text" [(ngModel)]="details.drug" name="drug" [placeholder]="translation.t('doseCalculator.form.drugPlaceholder')" class="w-full p-3 border border-medical-cyan/30 rounded-xl glass-panel text-white focus:border-medical-cyan outline-none transition" required />
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300">Indication (Reason)</label>
+                        <input type="text" [(ngModel)]="details.indication" name="indication" [placeholder]="translation.t('doseCalculator.form.indicationPlaceholder')" class="w-full p-3 border border-medical-cyan/30 rounded-xl glass-panel text-white focus:border-medical-cyan outline-none transition" required />
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300">Renal (Kidney) Status</label>
+                        <select [(ngModel)]="details.renalStatus" name="renalStatus" class="w-full p-3 border border-medical-cyan/30 rounded-xl glass-panel text-white focus:border-medical-cyan outline-none transition" required>
+                            <option value="Normal">{{ translation.t('doseCalculator.form.status.normal') }}</option>
+                            <option value="Mild Impairment">{{ translation.t('doseCalculator.form.status.mild') }}</option>
+                            <option value="Moderate Impairment">{{ translation.t('doseCalculator.form.status.moderate') }}</option>
+                            <option value="Severe Impairment">{{ translation.t('doseCalculator.form.status.severe') }}</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-300">Hepatic (Liver) Status</label>
+                        <select [(ngModel)]="details.hepaticStatus" name="hepaticStatus" class="w-full p-3 border border-medical-cyan/30 rounded-xl glass-panel text-white focus:border-medical-cyan outline-none transition" required>
+                            <option value="Normal">{{ translation.t('doseCalculator.form.status.normal') }}</option>
+                            <option value="Mild Impairment">{{ translation.t('doseCalculator.form.status.mild') }}</option>
+                            <option value="Moderate Impairment">{{ translation.t('doseCalculator.form.status.moderate') }}</option>
+                            <option value="Severe Impairment">{{ translation.t('doseCalculator.form.status.severe') }}</option>
+                        </select>
+                    </div>
                  </div>
             </div>
 
