@@ -15,21 +15,27 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
 // Connect to MongoDB
-const MONGODB_URI = process.env['MONGODB_URI'];
+// Checking multiple possible names in case of a small spelling mistake
+const MONGODB_URI = process.env['MONGODB_URI'] || 
+                    process.env['MONGODB_URL'] || 
+                    process.env['mongodb_uri'] || 
+                    process.env['MANGODB_URL'] ||
+                    process.env['MONGODB_URL_GROUP']; // Common if using groups
+
 if (!MONGODB_URI) {
-    console.error('CRITICAL: MONGODB_URI is not defined in environment variables!');
+    console.error('CRITICAL ERROR: No database connection link found in Render settings!');
+    console.log('Available environment variables:', Object.keys(process.env).filter(k => k.includes('MONGO') || k.includes('DB')));
 } else {
-    console.log('Attempting to connect to MongoDB...');
-    // Mask password for safety in logs
+    console.log('🚀 Attempting to connect to MongoDB...');
     const maskedUri = MONGODB_URI.replace(/:([^@]+)@/, ':****@');
-    console.log(`URI being used: ${maskedUri}`);
+    console.log(`Using link starting with: ${maskedUri.substring(0, 30)}...`);
 }
 
 mongoose.connect(MONGODB_URI || 'mongodb://localhost:27017/pharmaverse')
-    .then(() => console.log('✅ Successfully connected to MongoDB'))
+    .then(() => console.log('✅✅✅ SUCCESS: Connected to MongoDB Atlas!'))
     .catch(err => {
-        console.error('❌ MongoDB connection error details:');
-        console.error(err);
+        console.error('❌ DATABASE CONNECTION ERROR:');
+        console.error(err.message);
     });
 
 const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } });
