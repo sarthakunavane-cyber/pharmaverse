@@ -15,10 +15,22 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
 // Connect to MongoDB
-const MONGODB_URI = process.env['MONGODB_URI'] || 'mongodb://localhost:27017/pharmaverse';
-mongoose.connect(MONGODB_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+const MONGODB_URI = process.env['MONGODB_URI'];
+if (!MONGODB_URI) {
+    console.error('CRITICAL: MONGODB_URI is not defined in environment variables!');
+} else {
+    console.log('Attempting to connect to MongoDB...');
+    // Mask password for safety in logs
+    const maskedUri = MONGODB_URI.replace(/:([^@]+)@/, ':****@');
+    console.log(`URI being used: ${maskedUri}`);
+}
+
+mongoose.connect(MONGODB_URI || 'mongodb://localhost:27017/pharmaverse')
+    .then(() => console.log('✅ Successfully connected to MongoDB'))
+    .catch(err => {
+        console.error('❌ MongoDB connection error details:');
+        console.error(err);
+    });
 
 const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } });
 
