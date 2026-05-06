@@ -147,7 +147,7 @@ app.post('/api/chat', async (req, res) => {
         const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY as string });
         
         const response = await ai.models.generateContent({
-             model: 'gemini-flash-lite-latest',
+             model: 'gemini-3.1-flash-preview',
              contents: `System: You are an expert pharmacist AI. Answer in ${language}.\nUser: ${prompt}`,
         });
         res.json({ text: response.text });

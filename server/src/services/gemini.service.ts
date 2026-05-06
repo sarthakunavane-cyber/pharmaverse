@@ -25,12 +25,12 @@ const ai = new Proxy({} as any, {
     }
 });
 
-const textModel = 'gemini-2.5-flash';
-const visionModel = 'gemini-2.5-flash';
-const groundingModel = 'gemini-2.5-flash';
-const transcriptionModel = 'gemini-2.5-flash';
-const chatModel = 'gemini-2.5-flash';
-const ttsModel = 'gemini-2.5-flash';
+const textModel = 'gemini-3.1-flash-preview';
+const visionModel = 'gemini-2.0-flash';
+const groundingModel = 'gemini-3.1-flash-preview';
+const transcriptionModel = 'gemini-3.1-flash-preview';
+const chatModel = 'gemini-3.1-flash-preview';
+const ttsModel = 'gemini-3.1-flash-tts-preview';
 
 // --- Schemas for JSON validation and repair ---
 const interactionSchema = {
@@ -158,7 +158,15 @@ const otcGuideSchema = {
 // --- Generic JSON Parsing and Repair Function ---
 async function parseAndRepairJson<T>(textResponse: string, schema: any): Promise<T> {
     try {
-        const cleanText = textResponse.replace(/^```json\n/, '').replace(/\n```$/, '').trim();
+        // Find the first '{' or '[' and the last '}' or ']'
+        const startIdx = Math.max(textResponse.indexOf('{'), textResponse.indexOf('['));
+        const endIdx = Math.max(textResponse.lastIndexOf('}'), textResponse.lastIndexOf(']'));
+        
+        if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+            throw new Error("No JSON structure found in response.");
+        }
+        
+        const cleanText = textResponse.substring(startIdx, endIdx + 1).trim();
         return JSON.parse(cleanText) as T;
     } catch (e) {
         console.warn("Initial response was not valid JSON, asking model to repair.");
@@ -171,12 +179,16 @@ async function parseAndRepairJson<T>(textResponse: string, schema: any): Promise
 
         const repairResponse = await ai.models.generateContent({
             model: textModel,
-            contents: repairPrompt,
+            contents: [{ role: 'user', parts: [{ text: repairPrompt }] }],
             config: { responseMimeType: "application/json", responseSchema: schema },
         });
         
         try {
-             return JSON.parse(repairResponse.text || "") as T;
+             const repairText = repairResponse.text || "";
+             const rStartIdx = Math.max(repairText.indexOf('{'), repairText.indexOf('['));
+             const rEndIdx = Math.max(repairText.lastIndexOf('}'), repairText.lastIndexOf(']'));
+             const cleanedRepair = repairText.substring(rStartIdx, rEndIdx + 1).trim();
+             return JSON.parse(cleanedRepair) as T;
         } catch (repairError) {
             console.error("Failed to parse even the repaired JSON response.", repairError, "Repaired text:", repairResponse.text || "");
             throw new Error("Failed to get valid JSON from the model after repair attempt.");
@@ -244,21 +256,37 @@ export const extractPrescriptionDetails = async (imageData: string, mimeType: st
     try {
         const response = await ai.models.generateContent({
             model: visionModel,
-            contents: { parts: [{ inlineData: { mimeType, data: imageData } }, { text: visionPrompt }] },
+            contents: [{ role: 'user', parts: [{ inlineData: { mimeType, data: imageData } }, { text: visionPrompt }] }],
             config: { responseMimeType: "application/json", responseSchema: prescriptionSchema },
         });
 
         return await parseAndRepairJson<PrescriptionAnalysisResult>((response.text || ""), prescriptionSchema);
 
     } catch (error) {
-        const errorMessage = (error as Error).message || "An unknown error occurred.";
+        let errorMessage = (error as Error).message || "An unknown error occurred.";
+        
+        // Try to parse if it's a JSON string from the SDK
+        try {
+            if (errorMessage.startsWith('{')) {
+                const parsed = JSON.parse(errorMessage);
+                errorMessage = parsed.error?.message || parsed.message || errorMessage;
+            }
+        } catch (e) { /* ignore parse error */ }
+
         if (errorMessage.includes('SAFETY')) {
-             throw new Error("Prescription analysis failed due to safety reasons.");
+             throw new Error("Prescription analysis failed due to safety reasons. Please ensure the image is appropriate.");
+        }
+        if (errorMessage.includes('503') || errorMessage.includes('UNAVAILABLE') || errorMessage.includes('high demand')) {
+             throw new Error("The AI service is currently overloaded due to high demand. Please wait a moment and try again.");
+        }
+        if (errorMessage.includes('Quota exceeded') || errorMessage.includes('quota')) {
+             throw new Error("API Quota exceeded. Please try again in a few seconds or check your API plan limits.");
         }
         if (errorMessage.includes('400') || errorMessage.includes('Unable to process')) {
-             throw new Error("Image might be unreadable. Could not analyze the prescription image. Please ensure the image is clear and try again.");
+             throw new Error("Image might be unreadable. Could not analyze the prescription image. Please ensure the image is clear and well-lit.");
         }
-        throw new Error(errorMessage);
+        
+        throw new Error("Analysis error: " + (errorMessage.length > 150 ? "Service temporarily unavailable" : errorMessage));
     }
 };
 

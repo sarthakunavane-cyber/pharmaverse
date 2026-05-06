@@ -83,13 +83,18 @@ export class PrescriptionReader implements OnInit {
       this.prescriptionData = await this.gemini.extractPrescriptionDetails(base64Image, mimeType, this.translation.language);
       this.checkInteractions();
     } catch (err: any) {
-      const errorMessage = err.message || this.translation.t('common.error');
-      if (errorMessage.includes('SAFETY')) {
+      // Use the actual error message from the backend if possible
+      const rawError = err.error?.error || err.message || "";
+      
+      if (rawError.includes('SAFETY')) {
           this.error = this.translation.t('prescriptionReader.errors.safety');
-      } else if (errorMessage.includes('unreadable')) {
+      } else if (rawError.includes('unreadable') || rawError.includes('process image')) {
           this.error = this.translation.t('prescriptionReader.errors.unreadable');
+      } else if (rawError.includes('overloaded') || rawError.includes('high demand')) {
+          this.error = rawError; // Display the specific overload message
       } else {
-          this.error = this.translation.t('common.error');
+          // If it's a generic error or we don't recognize the specific backend message
+          this.error = rawError || this.translation.t('common.error');
       }
     } finally {
       this.loading = false;
