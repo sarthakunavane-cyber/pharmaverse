@@ -140,6 +140,16 @@ app.post('/api/symptoms/analyze', async (req, res) => {
     }
 });
 
+app.post('/api/drug/details', async (req, res) => {
+    try {
+        const { drugName, language } = req.body;
+        const result = await geminiService.getDrugInformation(drugName, language);
+        res.json(result);
+    } catch (e: any) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 app.post('/api/chat', async (req, res) => {
     try {
         const { prompt, language } = req.body;

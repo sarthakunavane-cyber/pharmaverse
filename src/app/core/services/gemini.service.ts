@@ -42,5 +42,10 @@ export class GeminiService {
     const res = await firstValueFrom(this.http.post<SymptomAnalysisResult>(`${this.baseUrl}/symptoms/analyze`, { symptoms, language }));
     return res as SymptomAnalysisResult;
   }
+
+  async fetchDrugDetails(drugName: string, language: string): Promise<DrugDetails> {
+    const res = await firstValueFrom(this.http.post<DrugDetails>(`${this.baseUrl}/drug/details`, { drugName, language }));
+    return res as DrugDetails;
+  }
 }
 

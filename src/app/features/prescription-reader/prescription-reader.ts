@@ -118,6 +118,32 @@ export class PrescriptionReader implements OnInit {
     }
   }
 
+  toggleDrugDetails(index: number) {
+    if (this.expandedDrugIndex === index) {
+      this.expandedDrugIndex = null;
+    } else {
+      this.expandedDrugIndex = index;
+      const drug = this.prescriptionData?.medications[index];
+      if (drug && !drug.details) {
+        this.fetchDrugDetails(index, drug.drugName || drug.genericName);
+      }
+    }
+  }
+
+  async fetchDrugDetails(index: number, drugName: string) {
+    this.drugDetailsLoading = true;
+    try {
+      const details = await this.gemini.fetchDrugDetails(drugName, this.translation.language);
+      if (this.prescriptionData) {
+        this.prescriptionData.medications[index].details = details;
+      }
+    } catch (error) {
+      console.error("Error fetching drug details:", error);
+    } finally {
+      this.drugDetailsLoading = false;
+    }
+  }
+
   clearState() {
     this.image = null;
     this.prescriptionData = null;
