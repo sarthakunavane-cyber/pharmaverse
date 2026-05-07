@@ -36,7 +36,9 @@ const ai: any = {
                     tools: args.config?.tools,
                     generationConfig: {
                         responseMimeType: args.config?.responseMimeType,
-                        responseSchema: args.config?.responseSchema
+                        responseSchema: args.config?.responseSchema,
+                        responseModalities: args.config?.responseModalities,
+                        speechConfig: args.config?.speechConfig
                     }
                 });
 
