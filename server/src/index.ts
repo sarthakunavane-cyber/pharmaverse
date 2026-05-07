@@ -160,10 +160,16 @@ app.post('/api/chat', async (req, res) => {
         
         const result = await model.generateContent(`System: You are an expert pharmacist AI. Answer in ${language}.\nUser: ${prompt}`);
         const response = await result.response;
-        res.json({ text: response.text() });
+        
+        // Log the response structure for debugging on Render
+        console.log('AI Response Structure:', JSON.stringify(Object.keys(response)));
+        
+        // Robustly get text whether it's a function or property
+        const responseText = typeof response.text === 'function' ? response.text() : response.text;
+        res.json({ text: responseText });
     } catch (e: any) {
-         console.error('CHAT ERROR:', e);
-         res.status(500).json({ error: e.message });
+         console.error('CHAT ERROR FULL:', e);
+         res.status(500).json({ error: e.message || 'Unknown AI Error' });
     }
 });
 

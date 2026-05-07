@@ -44,9 +44,12 @@ const ai: any = {
                 const result = await model.generateContent(args.contents?.parts ? args.contents.parts : args.contents);
                 const response = await result.response;
                 
+                // Robustly get text whether it's a function or property
+                const responseText = typeof response.text === 'function' ? response.text() : response.text;
+
                 // Return a structure that matches what the rest of the code expects
                 return {
-                    text: response.text(),
+                    text: responseText,
                     candidates: (response as any).candidates || []
                 };
             } catch (error: any) {
