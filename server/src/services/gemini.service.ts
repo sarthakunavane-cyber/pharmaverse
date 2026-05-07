@@ -20,13 +20,13 @@ const getGenAI = () => {
     if (!_genAI) {
         const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
         if (!apiKey) throw new Error("GEMINI_API_KEY is not defined in environment variables");
-        _genAI = new GoogleGenAI(apiKey);
+        _genAI = new GoogleGenAI({ apiKey: apiKey as string });
     }
     return _genAI;
 };
 
 // Compatibility wrapper to fix SDK syntax issues
-const ai = {
+const ai: any = {
     models: {
         generateContent: async (args: any) => {
             try {
@@ -53,6 +53,15 @@ const ai = {
                 console.error("SDK Wrapper Error:", error);
                 throw error;
             }
+        }
+    },
+    chats: {
+        create: (args: any) => {
+            const model = getGenAI().getGenerativeModel({ 
+                model: args.model || chatModel,
+                systemInstruction: args.config?.systemInstruction
+            });
+            return model.startChat(args.config);
         }
     }
 };
