@@ -158,11 +158,12 @@ app.post('/api/chat', async (req, res) => {
         const ai = new GoogleGenAI({ apiKey: apiKey as string });
         
         const response = await ai.models.generateContent({
-             model: 'gemini-3.1-flash-preview',
+             model: 'gemini-1.5-flash',
              contents: `System: You are an expert pharmacist AI. Answer in ${language}.\nUser: ${prompt}`,
         });
         res.json({ text: response.text });
     } catch (e: any) {
+         console.error('CHAT ERROR:', e.message);
          res.status(500).json({ error: e.message });
     }
 });

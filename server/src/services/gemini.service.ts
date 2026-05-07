@@ -26,12 +26,12 @@ const ai = new Proxy({} as any, {
     }
 });
 
-const textModel = 'gemini-3.1-flash-preview';
-const visionModel = 'gemini-2.0-flash';
-const groundingModel = 'gemini-3.1-flash-preview';
-const transcriptionModel = 'gemini-3.1-flash-preview';
-const chatModel = 'gemini-3.1-flash-preview';
-const ttsModel = 'gemini-3.1-flash-tts-preview';
+const textModel = 'gemini-1.5-flash';
+const visionModel = 'gemini-1.5-flash';
+const groundingModel = 'gemini-1.5-flash';
+const transcriptionModel = 'gemini-1.5-flash';
+const chatModel = 'gemini-1.5-flash';
+const ttsModel = 'gemini-1.5-flash';
 
 // --- Schemas for JSON validation and repair ---
 const interactionSchema = {
