@@ -155,7 +155,7 @@ app.post('/api/chat', async (req, res) => {
         const { prompt, language } = req.body;
         const { GoogleGenAI } = require("@google/genai");
         const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-        const genAI = new GoogleGenAI(apiKey as string);
+        const genAI = new GoogleGenAI({ apiKey: apiKey as string });
         const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
         
         const result = await model.generateContent(`System: You are an expert pharmacist AI. Answer in ${language}.\nUser: ${prompt}`);
