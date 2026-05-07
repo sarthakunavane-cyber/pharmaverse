@@ -15,16 +15,47 @@ import {
     SymptomAnalysisResult,
 } from '../types';
 
-let _aiInstance: any = null;
-const ai = new Proxy({} as any, {
-    get(target, prop) {
-        if (!_aiInstance) {
-            const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-            _aiInstance = new GoogleGenAI({ apiKey: apiKey as string });
-        }
-        return _aiInstance[prop];
+let _genAI: any = null;
+const getGenAI = () => {
+    if (!_genAI) {
+        const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+        if (!apiKey) throw new Error("GEMINI_API_KEY is not defined in environment variables");
+        _genAI = new GoogleGenAI(apiKey);
     }
-});
+    return _genAI;
+};
+
+// Compatibility wrapper to fix SDK syntax issues
+const ai = {
+    models: {
+        generateContent: async (args: any) => {
+            try {
+                const genAI = getGenAI();
+                const model = genAI.getGenerativeModel({ 
+                    model: args.model,
+                    tools: args.config?.tools,
+                    generationConfig: {
+                        responseMimeType: args.config?.responseMimeType,
+                        responseSchema: args.config?.responseSchema
+                    }
+                });
+
+                // Handle both string and array/object contents
+                const result = await model.generateContent(args.contents?.parts ? args.contents.parts : args.contents);
+                const response = await result.response;
+                
+                // Return a structure that matches what the rest of the code expects
+                return {
+                    text: response.text(),
+                    candidates: (response as any).candidates || []
+                };
+            } catch (error: any) {
+                console.error("SDK Wrapper Error:", error);
+                throw error;
+            }
+        }
+    }
+};
 
 const textModel = 'gemini-1.5-flash';
 const visionModel = 'gemini-1.5-flash';
@@ -178,20 +209,20 @@ async function parseAndRepairJson<T>(textResponse: string, schema: any): Promise
         
         The response MUST be valid JSON.`;
 
-        const repairResponse = await ai.models.generateContent({
+        const response = await ai.models.generateContent({
             model: textModel,
-            contents: [{ role: 'user', parts: [{ text: repairPrompt }] }],
-            config: { responseMimeType: "application/json", responseSchema: schema },
+            contents: repairPrompt,
+            config: { responseMimeType: "application/json", responseSchema: schema }
         });
         
         try {
-             const repairText = repairResponse.text || "";
+             const repairText = response.text;
              const rStartIdx = Math.max(repairText.indexOf('{'), repairText.indexOf('['));
              const rEndIdx = Math.max(repairText.lastIndexOf('}'), repairText.lastIndexOf(']'));
              const cleanedRepair = repairText.substring(rStartIdx, rEndIdx + 1).trim();
              return JSON.parse(cleanedRepair) as T;
         } catch (repairError) {
-            console.error("Failed to parse even the repaired JSON response.", repairError, "Repaired text:", repairResponse.text || "");
+            console.error("Failed to parse even the repaired JSON response.", repairError, "Repaired text:", response.text);
             throw new Error("Failed to get valid JSON from the model after repair attempt.");
         }
     }
@@ -257,7 +288,7 @@ export const extractPrescriptionDetails = async (imageData: string, mimeType: st
     try {
         const response = await ai.models.generateContent({
             model: visionModel,
-            contents: [{ role: 'user', parts: [{ inlineData: { mimeType, data: imageData } }, { text: visionPrompt }] }],
+            contents: { parts: [{ inlineData: { mimeType, data: imageData } }, { text: visionPrompt }] },
             config: { responseMimeType: "application/json", responseSchema: prescriptionSchema },
         });
 
