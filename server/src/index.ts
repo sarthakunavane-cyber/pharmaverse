@@ -154,7 +154,8 @@ app.post('/api/chat', async (req, res) => {
     try {
         const { prompt, language } = req.body;
         const { GoogleGenAI } = require("@google/genai");
-        const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY as string });
+        const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+        const ai = new GoogleGenAI({ apiKey: apiKey as string });
         
         const response = await ai.models.generateContent({
              model: 'gemini-3.1-flash-preview',

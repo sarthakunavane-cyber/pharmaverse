@@ -19,7 +19,8 @@ let _aiInstance: any = null;
 const ai = new Proxy({} as any, {
     get(target, prop) {
         if (!_aiInstance) {
-            _aiInstance = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY as string });
+            const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+            _aiInstance = new GoogleGenAI({ apiKey: apiKey as string });
         }
         return _aiInstance[prop];
     }
