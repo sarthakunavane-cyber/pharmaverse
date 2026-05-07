@@ -15,61 +15,17 @@ import {
     SymptomAnalysisResult,
 } from '../types';
 
-let _genAI: any = null;
-const getGenAI = () => {
-    if (!_genAI) {
-        const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-        if (!apiKey) throw new Error("GEMINI_API_KEY is not defined in environment variables");
-        _genAI = new GoogleGenAI({ apiKey: apiKey as string });
-    }
-    return _genAI;
-};
-
-// Compatibility wrapper to fix SDK syntax issues
-const ai: any = {
-    models: {
-        generateContent: async (args: any) => {
-            try {
-                const genAI = getGenAI();
-                const model = genAI.getGenerativeModel({ 
-                    model: args.model,
-                    tools: args.config?.tools,
-                    generationConfig: {
-                        responseMimeType: args.config?.responseMimeType,
-                        responseSchema: args.config?.responseSchema,
-                        responseModalities: args.config?.responseModalities,
-                        speechConfig: args.config?.speechConfig
-                    }
-                });
-
-                // Handle both string and array/object contents
-                const result = await model.generateContent(args.contents?.parts ? args.contents.parts : args.contents);
-                const response = await result.response;
-                
-                // Robustly get text whether it's a function or property
-                const responseText = typeof response.text === 'function' ? response.text() : response.text;
-
-                // Return a structure that matches what the rest of the code expects
-                return {
-                    text: responseText,
-                    candidates: (response as any).candidates || []
-                };
-            } catch (error: any) {
-                console.error("SDK Wrapper Error:", error);
-                throw error;
-            }
+let _aiInstance: any = null;
+const ai = new Proxy({} as any, {
+    get(target, prop) {
+        if (!_aiInstance) {
+            const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+            if (!apiKey) throw new Error("GEMINI_API_KEY is not defined");
+            _aiInstance = new GoogleGenAI({ apiKey: apiKey as string });
         }
-    },
-    chats: {
-        create: (args: any) => {
-            const model = getGenAI().getGenerativeModel({ 
-                model: args.model || chatModel,
-                systemInstruction: args.config?.systemInstruction
-            });
-            return model.startChat(args.config);
-        }
+        return _aiInstance[prop];
     }
-};
+});
 
 const textModel = 'gemini-1.5-flash';
 const visionModel = 'gemini-1.5-flash';

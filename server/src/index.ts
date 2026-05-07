@@ -155,18 +155,13 @@ app.post('/api/chat', async (req, res) => {
         const { prompt, language } = req.body;
         const { GoogleGenAI } = require("@google/genai");
         const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-        const genAI = new GoogleGenAI({ apiKey: apiKey as string });
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const ai = new GoogleGenAI({ apiKey: apiKey as string });
         
-        const result = await model.generateContent(`System: You are an expert pharmacist AI. Answer in ${language}.\nUser: ${prompt}`);
-        const response = await result.response;
-        
-        // Log the response structure for debugging on Render
-        console.log('AI Response Structure:', JSON.stringify(Object.keys(response)));
-        
-        // Robustly get text whether it's a function or property
-        const responseText = typeof response.text === 'function' ? response.text() : response.text;
-        res.json({ text: responseText });
+        const response = await ai.models.generateContent({
+             model: 'gemini-1.5-flash',
+             contents: `System: You are an expert pharmacist AI. Answer in ${language}.\nUser: ${prompt}`,
+        });
+        res.json({ text: response.text });
     } catch (e: any) {
          console.error('CHAT ERROR FULL:', e);
          res.status(500).json({ error: e.message || 'Unknown AI Error' });
