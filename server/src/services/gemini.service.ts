@@ -158,18 +158,33 @@ const otcGuideSchema = {
 
 
 // --- Generic JSON Parsing and Repair Function ---
+function extractJsonFromString(text: string): string {
+    let cleanText = text.trim();
+    if (cleanText.startsWith('```json')) cleanText = cleanText.substring(7);
+    else if (cleanText.startsWith('```')) cleanText = cleanText.substring(3);
+    if (cleanText.endsWith('```')) cleanText = cleanText.substring(0, cleanText.length - 3);
+    cleanText = cleanText.trim();
+    
+    const firstBrace = cleanText.indexOf('{');
+    const firstBracket = cleanText.indexOf('[');
+    let startIdx = -1;
+    if (firstBrace !== -1 && firstBracket !== -1) startIdx = Math.min(firstBrace, firstBracket);
+    else if (firstBrace !== -1) startIdx = firstBrace;
+    else startIdx = firstBracket;
+
+    if (startIdx === -1) throw new Error("No JSON structure found in response.");
+
+    const isArray = cleanText[startIdx] === '[';
+    const endChar = isArray ? ']' : '}';
+    const endIdx = cleanText.lastIndexOf(endChar);
+
+    if (endIdx === -1 || endIdx < startIdx) throw new Error("No closing JSON structure found.");
+    return cleanText.substring(startIdx, endIdx + 1).trim();
+}
+
 async function parseAndRepairJson<T>(textResponse: string, schema: any): Promise<T> {
     try {
-        // Find the first '{' or '[' and the last '}' or ']'
-        const startIdx = Math.max(textResponse.indexOf('{'), textResponse.indexOf('['));
-        const endIdx = Math.max(textResponse.lastIndexOf('}'), textResponse.lastIndexOf(']'));
-        
-        if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
-            throw new Error("No JSON structure found in response.");
-        }
-        
-        const cleanText = textResponse.substring(startIdx, endIdx + 1).trim();
-        return JSON.parse(cleanText) as T;
+        return JSON.parse(extractJsonFromString(textResponse)) as T;
     } catch (e) {
         console.warn("Initial response was not valid JSON, asking model to repair.");
         const repairPrompt = `The following text is intended to be a JSON object but is malformed. Please correct it so that it conforms to the provided schema and return ONLY the valid JSON object. Do not include any explanatory text or markdown.
@@ -186,14 +201,10 @@ async function parseAndRepairJson<T>(textResponse: string, schema: any): Promise
         });
         
         try {
-             const repairText = response.text;
-             const rStartIdx = Math.max(repairText.indexOf('{'), repairText.indexOf('['));
-             const rEndIdx = Math.max(repairText.lastIndexOf('}'), repairText.lastIndexOf(']'));
-             const cleanedRepair = repairText.substring(rStartIdx, rEndIdx + 1).trim();
-             return JSON.parse(cleanedRepair) as T;
+             return JSON.parse(extractJsonFromString(response.text || "")) as T;
         } catch (repairError) {
-            console.error("Failed to parse even the repaired JSON response.", repairError, "Repaired text:", response.text);
-            throw new Error("Failed to get valid JSON from the model after repair attempt.");
+             console.error("Failed to parse even the repaired JSON response.", repairError, "Repaired text:", response.text);
+             throw new Error("Failed to get valid JSON from the model after repair attempt.");
         }
     }
 }

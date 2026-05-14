@@ -13,7 +13,7 @@ import { AuthService } from '../../core/services/auth.service';
       <div class="max-w-md w-full glass-panel p-10 rounded-3xl shadow-2xl animate-fade-in border border-medical-cyan/20">
         <div class="text-center mb-10">
           <div class="w-16 h-16 bg-medical-cyan/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-medical-cyan/30">
-             <span class="text-3xl">💊</span>
+             <span class="text-3xl"></span>
           </div>
           <h2 class="text-3xl font-bold text-white mb-2">{{ isLogin() ? 'Welcome Back' : 'Create Account' }}</h2>
           <p class="text-gray-400">{{ isLogin() ? 'Login to access your medical history' : 'Join PharmaVerse for personalized care' }}</p>

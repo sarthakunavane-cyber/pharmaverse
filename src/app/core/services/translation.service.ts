@@ -8,9 +8,9 @@ const translations = {
           goBack: 'Go Back',
         },
         nav: {
-          Educational: 'Learn 📚',
+          Educational: 'Learn ',
           DoctorsCorner: 'For Doctors 🩺',
-          References: 'References 🔗',
+          References: 'References ',
         },
         language: {
           select: 'Select language',
@@ -22,10 +22,10 @@ const translations = {
         },
         footer: {
           disclaimer: 'Disclaimer: This tool is for informational purposes only and does not constitute medical advice. Consult a healthcare professional for any medical concerns.',
-          copyright: '© {year} PharmaVerse. All rights reserved.',
+          copyright: ' {year} PharmaVerse. All rights reserved.',
         },
         home: {
-            title: 'Your AI-Powered Pharmacy Assistant 🤖',
+            title: 'Your AI-Powered Pharmacy Assistant ',
             mission: 'An expanded suite of specialized tools designed to enhance medication safety and provide evidence-based medical information for everyone.',
             tools: {
                 InteractionDetector: { description: 'Check for potential interactions between drugs and herbs.' },
@@ -42,17 +42,17 @@ const translations = {
             }
         },
         pages: {
-            InteractionDetector: 'Drug Interaction Checker 💊',
-            PrescriptionReader: 'Smart Prescription Reader 📄',
+            InteractionDetector: 'Drug Interaction Checker ',
+            PrescriptionReader: 'Smart Prescription Reader ',
             SymptomChecker: 'AI Symptom Checker 🩺',
-            PillIdentifier: 'AI Pill Identifier 📸',
-            DoseCalculator: 'AI Dose Calculator 🧪',
-            PharmacistChatbot: 'Virtual Pharmacist Chat 💬',
-            LivePharmacist: 'Live Pharmacist Voice Chat 🎙️',
-            TextToSpeech: 'TTS Generator 🔊',
-            ClinicalTrialFinder: 'Clinical Trial Finder 🔬',
-            OtcSafetyGuide: 'OTC Safety Guide 📖',
-            MedicationGuideGenerator: 'Medication Guide Generator 📝',
+            PillIdentifier: 'AI Pill Identifier ',
+            DoseCalculator: 'AI Dose Calculator ',
+            PharmacistChatbot: 'Virtual Pharmacist Chat ',
+            LivePharmacist: 'Live Pharmacist Voice Chat ️',
+            TextToSpeech: 'TTS Generator ',
+            ClinicalTrialFinder: 'Clinical Trial Finder ',
+            OtcSafetyGuide: 'OTC Safety Guide ',
+            MedicationGuideGenerator: 'Medication Guide Generator ',
         },
         common: {
             loading: 'Loading...',
@@ -74,7 +74,7 @@ const translations = {
             thanksSubtitle: 'Your feedback has been submitted successfully.',
         },
         interactionChecker: {
-            title: 'Comprehensive Interaction Checker 🌿',
+            title: 'Comprehensive Interaction Checker ',
             subtitle: 'Check for potential interactions between drugs, herbs, supplements, and food.',
             tabs: {
                 drugHerb: 'Drug-Herb',
@@ -107,7 +107,7 @@ const translations = {
                 tooShort: 'Inputs must be at least 3 characters long.',
                 invalidChars: 'Please enter valid names. Avoid using only numbers or special characters.'
             },
-            examplesTitle: 'Common Interaction Examples 💡',
+            examplesTitle: 'Common Interaction Examples ',
             tryExample: 'Try this example',
             noInteractionsFound: 'No significant interactions were found among the provided medications. Always consult a healthcare professional for a comprehensive review.',
             polypharmacyResultsTitle: 'Polypharmacy Interaction Analysis',
@@ -145,24 +145,24 @@ const translations = {
             saferAlternatives: 'Safer Alternatives',
         },
         educational: {
-            title: 'Learn About Safe Medication Practices 🎓',
+            title: 'Learn About Safe Medication Practices ',
             articles: [
                 { title: 'Understanding Your Prescription', content: 'Always follow the dosage instructions provided by your doctor. Never share your medication with others. Store medicines in a cool, dry place away from children.' },
                 { title: 'The Danger of Self-Medication', content: 'Self-medicating can lead to incorrect dosage, adverse reactions, or masking a more serious underlying condition. Always consult a healthcare professional before starting any new treatment.' },
             ],
         },
         doctorsCorner: {
-            title: 'Resources for Healthcare Professionals 👩‍⚕️',
+            title: 'Resources for Healthcare Professionals ‍️',
             subtitle: 'Access curated, high-quality medical databases and resources.',
             section1Title: 'Professional Databases', section2Title: 'General Health Resources',
         },
         references: {
-            title: 'Authoritative Health Resources 📚',
+            title: 'Authoritative Health Resources ',
             subtitle: 'The information provided by our tools is compiled and verified against these reputable sources.',
             visitSite: 'Visit Site',
         },
         prescriptionReader: {
-            title: 'Smart Prescription Reader 🧐',
+            title: 'Smart Prescription Reader ',
             subtitle: 'Upload a clear image of your prescription to extract the details.',
             uploadButton: 'Click to upload a prescription',
             orDrag: 'or drag and drop an image here',
@@ -198,10 +198,10 @@ const translations = {
             howItWorks: {
                 title: 'How Smart Prescription Reader Works',
                 steps: [
-                    { emoji: '📱', title: '1. Upload', description: 'Take a clear photo or upload PDF' },
-                    { emoji: '🔍', title: '2. OCR Analysis', description: 'Advanced OCR extracts text' },
-                    { emoji: '🤖', title: '3. AI Verification', description: 'AI cross-checks with databases' },
-                    { emoji: '📊', title: '4. Detailed Report', description: 'Generate comprehensive report' },
+                    { emoji: '', title: '1. Upload', description: 'Take a clear photo or upload PDF' },
+                    { emoji: '', title: '2. OCR Analysis', description: 'Advanced OCR extracts text' },
+                    { emoji: '', title: '3. AI Verification', description: 'AI cross-checks with databases' },
+                    { emoji: '', title: '4. Detailed Report', description: 'Generate comprehensive report' },
                 ]
             },
             errors: {
@@ -214,7 +214,7 @@ const translations = {
             checkingInteractions: "Checking for interactions...",
         },
         pillIdentifier: {
-            title: 'AI Pill Identifier 💊',
+            title: 'AI Pill Identifier ',
             subtitle: 'Identify pills by their appearance, name, or packaging.',
             uploadLabel: 'Click to upload a pill image',
             analyzingImage: 'Analyzing image...',
@@ -238,7 +238,7 @@ const translations = {
             }
         },
         doseCalculator: {
-            title: 'AI Dose Calculator ⚖️',
+            title: 'AI Dose Calculator ️',
             subtitle: 'Enter the details below to calculate the recommended dosage.',
             calculateButton: 'Calculate Dose',
             calculating: 'Calculating...',
@@ -282,7 +282,7 @@ const translations = {
             reasoning: "Reasoning"
         },
         clinicalTrialFinder: {
-            title: 'Clinical Trial Finder (India) 🇮🇳',
+            title: 'Clinical Trial Finder (India) ',
             subtitle: 'Search for ongoing clinical trials in India based on a condition or drug.',
             searching: 'Searching...',
             searchButton: 'Search',
@@ -300,7 +300,7 @@ const translations = {
             }
         },
         otcGuide: {
-            title: 'OTC Medicine Safety Guide ✅',
+            title: 'OTC Medicine Safety Guide ',
             subtitle: 'Get a safety guide for any over-the-counter medicine.',
             drugPlaceholder: 'e.g., Ibuprofen',
             gettingGuide: 'Getting guide...',
@@ -315,17 +315,17 @@ const translations = {
                 sideEffects: 'Side Effects',
                 interactions: 'Interactions',
             },
-            rulesTitle: '5 Golden Rules of OTC Use ⭐',
+            rulesTitle: '5 Golden Rules of OTC Use ',
             rules: [
-                { emoji: '📖', title: 'Read the Label', description: 'Always read all ingredients and directions before taking any OTC medication.' },
-                { emoji: '⚠️', title: 'Check Interactions', description: "Verify that OTC medicines won't interact with your prescription medications." },
-                { emoji: '📏', title: 'Follow Dosage', description: 'Never exceed recommended doses. More is not always better and can be dangerous.' },
+                { emoji: '', title: 'Read the Label', description: 'Always read all ingredients and directions before taking any OTC medication.' },
+                { emoji: '️', title: 'Check Interactions', description: "Verify that OTC medicines won't interact with your prescription medications." },
+                { emoji: '', title: 'Follow Dosage', description: 'Never exceed recommended doses. More is not always better and can be dangerous.' },
                 { emoji: '⏰', title: 'Time Limits', description: "Don't use OTC medicines longer than recommended. See a doctor if symptoms persist." },
-                { emoji: '👨‍⚕️', title: 'Ask Professionals', description: 'Consult pharmacists or doctors if you have questions or concerns.' },
+                { emoji: '‍️', title: 'Ask Professionals', description: 'Consult pharmacists or doctors if you have questions or concerns.' },
             ]
         },
         medicationGuide: {
-            title: 'Medication Guide Generator 📝',
+            title: 'Medication Guide Generator ',
             subtitle: 'Generate a simplified, patient-friendly guide for any medication.',
             drugPlaceholder: 'e.g., Atorvastatin',
             generating: 'Generating guide...',
@@ -340,19 +340,19 @@ const translations = {
             startMessage: 'Enter a drug name above to generate a patient-friendly guide.'
         },
         pharmacistChatbot: {
-            title: 'Virtual Pharmacist Chat 🧑‍⚕️',
+            title: 'Virtual Pharmacist Chat ‍️',
             subtitle: 'This is for informational purposes only.',
             welcomeMessage: 'Hello! I am your AI Pharmacist. How can I help you with your medication questions today?',
             inputPlaceholder: 'Type your question, or use the mic...',
-            recording: 'Recording audio... 🎤',
-            transcribing: 'Transcribing audio... ✍️',
+            recording: 'Recording audio... ',
+            transcribing: 'Transcribing audio... ️',
             startRecording: 'Start recording',
             stopRecording: 'Stop recording',
             micError: 'Microphone access denied. Please allow microphone access in your browser settings.',
             transcriptionError: 'Transcription failed. Please try again.',
         },
         livePharmacist: {
-            title: 'Live Pharmacist Voice Chat 🎙️',
+            title: 'Live Pharmacist Voice Chat ️',
             subtitle: 'Speak directly with our AI pharmacist for instant answers.',
             start: 'Start Conversation',
             stop: 'End Conversation',
@@ -366,7 +366,7 @@ const translations = {
             bot: 'AI Pharmacist'
         },
         ttsGenerator: {
-            title: 'Text-to-Speech Generator 🔊',
+            title: 'Text-to-Speech Generator ',
             subtitle: 'Convert text into high-quality spoken audio.',
             placeholder: 'Enter text here...',
             languageLabel: 'Language for Speech',
@@ -390,9 +390,9 @@ const translations = {
             goBack: 'वापस जाएं',
         },
         nav: {
-            Educational: 'जानें 📚',
+            Educational: 'जानें ',
             DoctorsCorner: 'डॉक्टरों के लिए 🩺',
-            References: 'संदर्भ 🔗',
+            References: 'संदर्भ ',
         },
         language: {
             select: 'भाषा चुनें',
@@ -404,10 +404,10 @@ const translations = {
         },
         footer: {
             disclaimer: 'अस्वीकरण: यह उपकरण केवल सूचनात्मक उद्देश्यों के लिए है और चिकित्सा सलाह का गठन नहीं करता है। किसी भी चिकित्सा चिंता के लिए एक स्वास्थ्य देखभाल पेशेवर से परामर्श करें।',
-            copyright: '© {year} फार्मावर्स। सर्वाधिकार सुरक्षित।',
+            copyright: ' {year} फार्मावर्स। सर्वाधिकार सुरक्षित।',
         },
         home: {
-            title: 'आपका एआई-संचालित फार्मेसी सहायक 🤖',
+            title: 'आपका एआई-संचालित फार्मेसी सहायक ',
             mission: 'विशेष उपकरणों का एक विस्तारित सूट जो दवा सुरक्षा को बढ़ाने और सभी के लिए साक्ष्य-आधारित चिकित्सा जानकारी प्रदान करने के लिए डिज़ाइन किया गया है।',
             tools: {
                 InteractionDetector: { description: 'दवाओं और जड़ी-बूटियों के बीच संभावित इंटरैक्शन की जांच करें।' },
@@ -423,16 +423,16 @@ const translations = {
             },
         },
         pages: {
-            InteractionDetector: 'ड्रग इंटरेक्शन चेकर 💊',
-            PrescriptionReader: 'स्मार्ट प्रिस्क्रिप्शन रीडर 📄',
+            InteractionDetector: 'ड्रग इंटरेक्शन चेकर ',
+            PrescriptionReader: 'स्मार्ट प्रिस्क्रिप्शन रीडर ',
             SymptomChecker: 'एआई लक्षण चेकर 🩺',
-            PillIdentifier: 'एआई गोली पहचानकर्ता 📸',
-            DoseCalculator: 'एआई खुराक कैलकुलेटर 🧪',
-            PharmacistChatbot: 'वर्चुअल फार्मासिस्ट चैट 💬',
-            LivePharmacist: 'लाइव फार्मासिस्ट वॉयस चैट 🎙️',
-            TextToSpeech: 'टीटीएस जेनरेटर 🔊',
-            ClinicalTrialFinder: 'क्लिनिकल ट्रायल फाइंडर 🔬',
-            OtcSafetyGuide: 'ओटीसी सुरक्षा गाइड 📖',
+            PillIdentifier: 'एआई गोली पहचानकर्ता ',
+            DoseCalculator: 'एआई खुराक कैलकुलेटर ',
+            PharmacistChatbot: 'वर्चुअल फार्मासिस्ट चैट ',
+            LivePharmacist: 'लाइव फार्मासिस्ट वॉयस चैट ️',
+            TextToSpeech: 'टीटीएस जेनरेटर ',
+            ClinicalTrialFinder: 'क्लिनिकल ट्रायल फाइंडर ',
+            OtcSafetyGuide: 'ओटीसी सुरक्षा गाइड ',
         },
         common: {
             loading: 'लोड हो रहा है...',
@@ -454,7 +454,7 @@ const translations = {
             thanksSubtitle: 'आपकी प्रतिक्रिया सफलतापूर्वक सबमिट कर दी गई है।',
         },
         interactionChecker: {
-            title: 'व्यापक इंटरेक्शन चेकर 🌿',
+            title: 'व्यापक इंटरेक्शन चेकर ',
             subtitle: 'दवाओं, जड़ी-बूटियों, सप्लीमेंट्स और भोजन के बीच संभावित इंटरैक्शन की जांच करें।',
             tabs: {
                 drugHerb: 'दवा-जड़ी-बूटी',
@@ -486,7 +486,7 @@ const translations = {
                 polypharmacyEmpty: 'कृपया दवाओं की सूची दर्ज करें।',
                 invalidChars: 'कृपया मान्य नाम दर्ज करें। केवल संख्या या विशेष वर्णों का उपयोग करने से बचें।'
             },
-            examplesTitle: 'आम इंटरेक्शन के उदाहरण 💡',
+            examplesTitle: 'आम इंटरेक्शन के उदाहरण ',
             tryExample: 'यह उदाहरण आज़माएं',
             noInteractionsFound: 'दी गई दवाओं के बीच कोई महत्वपूर्ण इंटरेक्शन नहीं मिला। एक व्यापक समीक्षा के लिए हमेशा एक स्वास्थ्य देखभाल पेशेवर से परामर्श करें।',
             polypharmacyResultsTitle: 'पॉलीफार्मेसी इंटरेक्शन विश्लेषण',
@@ -533,7 +533,7 @@ const translations = {
             saferAlternatives: 'सुरक्षित विकल्प',
         },
         educational: {
-            title: 'सुरक्षित दवा प्रथाओं के बारे में जानें 🎓',
+            title: 'सुरक्षित दवा प्रथाओं के बारे में जानें ',
             articles: [
                 { title: 'अपने पर्चे को समझना', content: 'हमेशा अपने डॉक्टर द्वारा दिए गए खुराक के निर्देशों का पालन करें। अपनी दवा कभी दूसरों के साथ साझा न करें। दवाओं को बच्चों से दूर ठंडी, सूखी जगह पर रखें।' },
                 { title: 'स्व-दवा का खतरा', content: 'स्व-दवा से गलत खुराक, प्रतिकूल प्रतिक्रियाएं हो सकती हैं, या एक अधिक गंभीर अंतर्निहित स्थिति छिप सकती है। कोई भी नया उपचार शुरू करने से पहले हमेशा एक स्वास्थ्य देखभाल पेशेवर से परामर्श करें।' },
@@ -541,17 +541,17 @@ const translations = {
             ],
         },
         doctorsCorner: {
-            title: 'स्वास्थ्य पेशेवरों के लिए संसाधन 👩‍⚕️',
+            title: 'स्वास्थ्य पेशेवरों के लिए संसाधन ‍️',
             subtitle: 'क्यूरेटेड, उच्च-गुणवत्ता वाले मेडिकल डेटाबेस और संसाधनों तक पहुँचें।',
             section1Title: 'पेशेवर डेटाबेस', section2Title: 'सामान्य स्वास्थ्य संसाधन',
         },
         references: {
-            title: 'आधिकारिक स्वास्थ्य संसाधन 📚',
+            title: 'आधिकारिक स्वास्थ्य संसाधन ',
             subtitle: 'हमारे उपकरणों द्वारा प्रदान की गई जानकारी इन प्रतिष्ठित स्रोतों से संकलित और सत्यापित है।',
             visitSite: 'साइट पर जाएं',
         },
         prescriptionReader: {
-            title: 'स्मार्ट प्रिस्क्रिप्शन रीडर 🧐',
+            title: 'स्मार्ट प्रिस्क्रिप्शन रीडर ',
             subtitle: 'विवरण निकालने के लिए अपने पर्चे की एक स्पष्ट छवि अपलोड करें।',
             uploadButton: 'एक पर्चे को अपलोड करने के लिए क्लिक करें',
             orDrag: 'या यहां एक छवि खींचें और छोड़ें',
@@ -592,10 +592,10 @@ const translations = {
             howItWorks: {
                 title: 'स्मार्ट प्रिस्क्रिप्शन रीडर कैसे काम करता है',
                 steps: [
-                    { emoji: '📱', title: '1. अपलोड करें', description: 'अपने पर्चे का एक स्पष्ट फोटो लें या पीडीएफ अपलोड करें' },
-                    { emoji: '🔍', title: '2. ओसीआर विश्लेषण', description: 'उन्नत ओसीआर हस्तलिखित पर्चों से पाठ निकालता है' },
-                    { emoji: '🤖', title: '3. एआई सत्यापन', description: 'एआई भारतीय फार्माकोपिया डेटाबेस के साथ क्रॉस-चेक करता है' },
-                    { emoji: '📊', title: '4. विस्तृत रिपोर्ट', description: 'व्यापक दवा सुरक्षा रिपोर्ट उत्पन्न करें' },
+                    { emoji: '', title: '1. अपलोड करें', description: 'अपने पर्चे का एक स्पष्ट फोटो लें या पीडीएफ अपलोड करें' },
+                    { emoji: '', title: '2. ओसीआर विश्लेषण', description: 'उन्नत ओसीआर हस्तलिखित पर्चों से पाठ निकालता है' },
+                    { emoji: '', title: '3. एआई सत्यापन', description: 'एआई भारतीय फार्माकोपिया डेटाबेस के साथ क्रॉस-चेक करता है' },
+                    { emoji: '', title: '4. विस्तृत रिपोर्ट', description: 'व्यापक दवा सुरक्षा रिपोर्ट उत्पन्न करें' },
                 ]
             },
             errors: {
@@ -608,7 +608,7 @@ const translations = {
             checkingInteractions: "इंटरेक्शन की जाँच हो रही है...",
         },
         pillIdentifier: {
-            title: 'एआई गोली पहचानकर्ता 💊',
+            title: 'एआई गोली पहचानकर्ता ',
             subtitle: 'गोलियों को उनकी उपस्थिति, नाम या पैकेजिंग से पहचानें।',
             uploadLabel: 'एक गोली की छवि अपलोड करने के लिए क्लिक करें',
             analyzingImage: 'छवि का विश्लेषण हो रहा है...',
@@ -635,7 +635,7 @@ const translations = {
             }
         },
         doseCalculator: {
-            title: 'एआई खुराक कैलकुलेटर ⚖️',
+            title: 'एआई खुराक कैलकुलेटर ️',
             subtitle: 'अनुशंसित खुराक की गणना के लिए नीचे विवरण दर्ज करें।',
             calculateButton: 'खुराक की गणना करें',
             calculating: 'गणना हो रही है...',
@@ -683,7 +683,7 @@ const translations = {
             reasoning: "तर्क"
         },
         clinicalTrialFinder: {
-            title: 'क्लिनिकल ट्रायल फाइंडर (भारत) 🇮🇳',
+            title: 'क्लिनिकल ट्रायल फाइंडर (भारत) ',
             subtitle: 'एक स्थिति या दवा के आधार पर भारत में चल रहे क्लिनिकल परीक्षणों की खोज करें।',
             searching: 'खोज हो रही है...',
             searchButton: 'खोजें',
@@ -701,7 +701,7 @@ const translations = {
             }
         },
         otcGuide: {
-            title: 'ओटीसी दवा सुरक्षा गाइड ✅',
+            title: 'ओटीसी दवा सुरक्षा गाइड ',
             subtitle: 'किसी भी ओवर-द-काउंटर दवा के लिए एक सुरक्षा गाइड प्राप्त करें।',
             drugPlaceholder: 'उदा., इबुप्रोफेन',
             gettingGuide: 'गाइड प्राप्त हो रहा है...',
@@ -716,29 +716,29 @@ const translations = {
                 sideEffects: 'दुष्प्रभाव',
                 interactions: 'इंटरेक्शन'
             },
-            rulesTitle: 'ओटीसी उपयोग के 5 सुनहरे नियम ⭐',
+            rulesTitle: 'ओटीसी उपयोग के 5 सुनहरे नियम ',
             rules: [
-                { emoji: '📖', title: 'लेबल पढ़ें', description: 'कोई भी ओटीसी दवा लेने से पहले हमेशा सभी सामग्री और निर्देश पढ़ें।' },
-                { emoji: '⚠️', title: 'इंटरेक्शन जांचें', description: 'सत्यापित करें कि ओटीसी दवाएं आपकी पर्चे वाली दवाओं के साथ परस्पर क्रिया नहीं करेंगी।' },
-                { emoji: '📏', title: 'खुराक का पालन करें', description: 'कभी भी अनुशंसित खुराक से अधिक न लें। अधिक हमेशा बेहतर नहीं होता और खतरनाक हो सकता है।' },
+                { emoji: '', title: 'लेबल पढ़ें', description: 'कोई भी ओटीसी दवा लेने से पहले हमेशा सभी सामग्री और निर्देश पढ़ें।' },
+                { emoji: '️', title: 'इंटरेक्शन जांचें', description: 'सत्यापित करें कि ओटीसी दवाएं आपकी पर्चे वाली दवाओं के साथ परस्पर क्रिया नहीं करेंगी।' },
+                { emoji: '', title: 'खुराक का पालन करें', description: 'कभी भी अनुशंसित खुराक से अधिक न लें। अधिक हमेशा बेहतर नहीं होता और खतरनाक हो सकता है।' },
                 { emoji: '⏰', title: 'समय सीमा', description: 'अनुशंसित से अधिक समय तक ओटीसी दवाओं का उपयोग न करें। यदि लक्षण बने रहते हैं तो डॉक्टर से मिलें।' },
-                { emoji: '👨‍⚕️', title: 'पेशेवरों से पूछें', description: 'यदि आपके कोई प्रश्न या चिंताएं हैं तो फार्मासिस्ट या डॉक्टरों से परामर्श करें।' },
+                { emoji: '‍️', title: 'पेशेवरों से पूछें', description: 'यदि आपके कोई प्रश्न या चिंताएं हैं तो फार्मासिस्ट या डॉक्टरों से परामर्श करें।' },
             ]
         },
         pharmacistChatbot: {
-            title: 'वर्चुअल फार्मासिस्ट चैट 🧑‍⚕️',
+            title: 'वर्चुअल फार्मासिस्ट चैट ‍️',
             subtitle: 'यह केवल सूचनात्मक उद्देश्यों के लिए है।',
             welcomeMessage: 'नमस्ते! मैं आपका एआई फार्मासिस्ट हूं। मैं आज आपके दवा संबंधी सवालों में कैसे मदद कर सकता हूं?',
             inputPlaceholder: 'अपना प्रश्न यहाँ लिखें, या माइक का उपयोग करें...',
-            recording: 'ऑडियो रिकॉर्ड हो रहा है... 🎤',
-            transcribing: 'ऑडियो का प्रतिलेखन किया जा रहा है... ✍️',
+            recording: 'ऑडियो रिकॉर्ड हो रहा है... ',
+            transcribing: 'ऑडियो का प्रतिलेखन किया जा रहा है... ️',
             startRecording: 'रिकॉर्डिंग शुरू करें',
             stopRecording: 'रिकॉर्डिंग बंद करें',
             micError: 'माइक्रोफ़ोन एक्सेस अस्वीकृत। कृपया अपनी ब्राउज़र सेटिंग्स में माइक्रोफ़ोन एक्सेस की अनुमति दें।',
             transcriptionError: 'प्रतिलेखन विफल। कृपया पुन: प्रयास करें।',
         },
         livePharmacist: {
-            title: 'लाइव फार्मासिस्ट वॉयस चैट 🎙️',
+            title: 'लाइव फार्मासिस्ट वॉयस चैट ️',
             subtitle: 'तुरंत जवाब पाने के लिए सीधे हमारे एआई फार्मासिस्ट से बात करें।',
             start: 'बातचीत शुरू करें',
             stop: 'बातचीत समाप्त करें',
@@ -752,7 +752,7 @@ const translations = {
             bot: 'एआई फार्मासिस्ट'
         },
         ttsGenerator: {
-            title: 'टेक्स्ट-टू-स्पीच जेनरेटर 🔊',
+            title: 'टेक्स्ट-टू-स्पीच जेनरेटर ',
             subtitle: 'टेक्स्ट को उच्च-गुणवत्ता वाली बोली जाने वाली ऑडियो में बदलें।',
             placeholder: 'यहां टेक्स्ट दर्ज करें...',
             voiceLabel: 'एक आवाज़ चुनें',
@@ -773,9 +773,9 @@ const translations = {
             goBack: 'मागे जा',
         },
         nav: {
-            Educational: 'शिका 📚',
+            Educational: 'शिका ',
             DoctorsCorner: 'डॉक्टरांसाठी 🩺',
-            References: 'संदर्भ 🔗',
+            References: 'संदर्भ ',
         },
         language: {
             select: 'भाषा निवडा',
@@ -787,10 +787,10 @@ const translations = {
         },
         footer: {
             disclaimer: 'अस्वीकरण: हे साधन केवळ माहितीच्या उद्देशाने आहे आणि वैद्यकीय सल्ला नाही. कोणत्याही वैद्यकीय समस्यांसाठी आरोग्यसेवा व्यावसायिकांचा सल्ला घ्या.',
-            copyright: '© {year} फार्मावर्स. सर्व हक्क राखीव.',
+            copyright: ' {year} फार्मावर्स. सर्व हक्क राखीव.',
         },
         home: {
-            title: 'तुमचा एआय-चालित फार्मसी सहाय्यक 🤖',
+            title: 'तुमचा एआय-चालित फार्मसी सहाय्यक ',
             mission: 'औषध सुरक्षा वाढविण्यासाठी आणि सर्वांसाठी पुरावा-आधारित वैद्यकीय माहिती प्रदान करण्यासाठी डिझाइन केलेली विशेष साधनांचा विस्तारित संच.',
             tools: {
                 InteractionDetector: { description: 'औषधे आणि औषधी वनस्पतींमधील संभाव्य परस्परसंवादांची तपासणी करा.' },
@@ -806,16 +806,16 @@ const translations = {
             },
         },
         pages: {
-            InteractionDetector: 'ड्रग इंटरॅक्शन चेकर 💊',
-            PrescriptionReader: 'स्मार्ट प्रिस्क्रिप्शन रीडर 📄',
+            InteractionDetector: 'ड्रग इंटरॅक्शन चेकर ',
+            PrescriptionReader: 'स्मार्ट प्रिस्क्रिप्शन रीडर ',
             SymptomChecker: 'एआय लक्षण तपासक 🩺',
-            PillIdentifier: 'एआय गोळी ओळखकर्ता 📸',
-            DoseCalculator: 'एआय डोस कॅल्क्युलेटर 🧪',
-            PharmacistChatbot: 'व्हर्च्युअल फार्मासिस्ट चॅट 💬',
-            LivePharmacist: 'लाइव्ह फार्मासिस्ट व्हॉइस चॅट 🎙️',
-            TextToSpeech: 'टीटीएस जनरेटर 🔊',
-            ClinicalTrialFinder: 'क्लिनिकल ट्रायल फाइंडर 🔬',
-            OtcSafetyGuide: 'ओटीसी सुरक्षा मार्गदर्शक 📖',
+            PillIdentifier: 'एआय गोळी ओळखकर्ता ',
+            DoseCalculator: 'एआय डोस कॅल्क्युलेटर ',
+            PharmacistChatbot: 'व्हर्च्युअल फार्मासिस्ट चॅट ',
+            LivePharmacist: 'लाइव्ह फार्मासिस्ट व्हॉइस चॅट ️',
+            TextToSpeech: 'टीटीएस जनरेटर ',
+            ClinicalTrialFinder: 'क्लिनिकल ट्रायल फाइंडर ',
+            OtcSafetyGuide: 'ओटीसी सुरक्षा मार्गदर्शक ',
         },
         common: {
             loading: 'लोड होत आहे...',
@@ -837,7 +837,7 @@ const translations = {
             thanksSubtitle: 'तुमचा अभिप्राय यशस्वीरित्या सबमिट झाला आहे.',
         },
         interactionChecker: {
-            title: 'सर्वसमावेशक परस्परसंवाद तपासक 🌿',
+            title: 'सर्वसमावेशक परस्परसंवाद तपासक ',
             subtitle: 'औषधे, औषधी वनस्पती, पूरक आणि अन्न यांच्यातील संभाव्य परस्परसंवादांची तपासणी करा.',
             tabs: {
                 drugHerb: 'औषध-वनस्पती',
@@ -869,7 +869,7 @@ const translations = {
                 polypharmacyEmpty: 'कृपया औषधांची सूची प्रविष्ट करा.',
                 invalidChars: 'कृपया वैध नावे प्रविष्ट करा. केवळ संख्या किंवा विशेष अक्षरे वापरणे टाळा.'
             },
-            examplesTitle: 'सामान्य परस्परसंवादांची उदाहरणे 💡',
+            examplesTitle: 'सामान्य परस्परसंवादांची उदाहरणे ',
             tryExample: 'हे उदाहरण वापरून पहा',
             noInteractionsFound: 'प्रदान केलेल्या औषधांमध्ये कोणतेही महत्त्वपूर्ण परस्परसंवाद आढळले नाहीत. सर्वसमावेशक पुनरावलोकनासाठी नेहमी आरोग्यसेवा व्यावसायिकांचा सल्ला घ्या.',
             polypharmacyResultsTitle: 'पॉलीफार्मसी परस्परसंवाद विश्लेषण',
@@ -916,7 +916,7 @@ const translations = {
             saferAlternatives: 'सुरक्षित पर्याय',
         },
         educational: {
-            title: 'सुरक्षित औषध पद्धतींबद्दल जाणून घ्या 🎓',
+            title: 'सुरक्षित औषध पद्धतींबद्दल जाणून घ्या ',
             articles: [
                 { title: 'तुमचे प्रिस्क्रिप्शन समजून घेणे', content: 'तुमच्या डॉक्टरांनी दिलेल्या डोसच्या सूचनांचे नेहमी पालन करा. तुमचे औषध इतरांसोबत कधीही शेअर करू नका. औषधे मुलांपासून दूर थंड, कोरड्या जागी ठेवा.' },
                 { title: 'स्व-औषधाचा धोका', content: 'स्व-औषधामुळे चुकीचा डोस, प्रतिकूल प्रतिक्रिया किंवा अधिक गंभीर मूळ स्थिती लपविली जाऊ शकते. कोणतेही नवीन उपचार सुरू करण्यापूर्वी नेहमी आरोग्यसेवा व्यावसायिकांचा सल्ला घ्या.' },
@@ -924,17 +924,17 @@ const translations = {
             ],
         },
         doctorsCorner: {
-            title: 'आरोग्यसेवा व्यावसायिकांसाठी संसाधने 👩‍⚕️',
+            title: 'आरोग्यसेवा व्यावसायिकांसाठी संसाधने ‍️',
             subtitle: 'क्युरेटेड, उच्च-गुणवत्तेच्या वैद्यकीय डेटाबेस आणि संसाधनांमध्ये प्रवेश करा.',
             section1Title: 'व्यावसायिक डेटाबेस', section2Title: 'सामान्य आरोग्य संसाधने',
         },
         references: {
-            title: 'अधिकृत आरोग्य संसाधने 📚',
+            title: 'अधिकृत आरोग्य संसाधने ',
             subtitle: 'आमच्या साधनांद्वारे प्रदान केलेली माहिती या प्रतिष्ठित स्रोतांकडून संकलित आणि सत्यापित केली जाते.',
             visitSite: 'साइटला भेट द्या',
         },
         prescriptionReader: {
-            title: 'स्मार्ट प्रिस्क्रिप्शन रीडर 🧐',
+            title: 'स्मार्ट प्रिस्क्रिप्शन रीडर ',
             subtitle: 'तपशील काढण्यासाठी तुमच्या प्रिस्क्रिप्शनची स्पष्ट प्रतिमा अपलोड करा.',
             uploadButton: 'प्रिस्क्रिप्शन अपलोड करण्यासाठी क्लिक करा',
             orDrag: 'किंवा येथे एक प्रतिमा ड्रॅग आणि ड्रॉप करा',
@@ -975,10 +975,10 @@ const translations = {
             howItWorks: {
                 title: 'स्मार्ट प्रिस्क्रिप्शन रीडर कसे कार्य करते',
                 steps: [
-                    { emoji: '📱', title: '१. अपलोड करा', description: 'तुमच्या प्रिस्क्रिप्शनचा स्पष्ट फोटो घ्या किंवा PDF अपलोड करा' },
-                    { emoji: '🔍', title: '२. ओसीआर विश्लेषण', description: 'प्रगत ओसीआर हस्तलिखित प्रिस्क्रिप्शनमधून मजकूर काढतो' },
-                    { emoji: '🤖', title: '३. एआय पडताळणी', description: 'एआय भारतीय फार्माकोपिया डेटाबेससह क्रॉस-चेक करते' },
-                    { emoji: '📊', title: '४. तपशीलवार अहवाल', description: 'सर्वसमावेशक औषध सुरक्षा अहवाल तयार करा' },
+                    { emoji: '', title: '१. अपलोड करा', description: 'तुमच्या प्रिस्क्रिप्शनचा स्पष्ट फोटो घ्या किंवा PDF अपलोड करा' },
+                    { emoji: '', title: '२. ओसीआर विश्लेषण', description: 'प्रगत ओसीआर हस्तलिखित प्रिस्क्रिप्शनमधून मजकूर काढतो' },
+                    { emoji: '', title: '३. एआय पडताळणी', description: 'एआय भारतीय फार्माकोपिया डेटाबेससह क्रॉस-चेक करते' },
+                    { emoji: '', title: '४. तपशीलवार अहवाल', description: 'सर्वसमावेशक औषध सुरक्षा अहवाल तयार करा' },
                 ]
             },
             errors: {
@@ -991,7 +991,7 @@ const translations = {
             checkingInteractions: "परस्परसंवादांची तपासणी करत आहे...",
         },
         pillIdentifier: {
-            title: 'एआय गोळी ओळखकर्ता 💊',
+            title: 'एआय गोळी ओळखकर्ता ',
             subtitle: 'गोळ्या त्यांच्या दिसण्यावरून, नावाने किंवा पॅकेजिंगवरून ओळखा.',
             uploadLabel: 'गोळीची प्रतिमा अपलोड करण्यासाठी क्लिक करा',
             analyzingImage: 'प्रतिमेचे विश्लेषण करत आहे...',
@@ -1018,7 +1018,7 @@ const translations = {
             }
         },
         doseCalculator: {
-            title: 'एआय डोस कॅल्क्युलेटर ⚖️',
+            title: 'एआय डोस कॅल्क्युलेटर ️',
             subtitle: 'शिफारस केलेल्या डोसची गणना करण्यासाठी खालील तपशील प्रविष्ट करा.',
             calculateButton: 'डोसची गणना करा',
             calculating: 'गणना करत आहे...',
@@ -1066,7 +1066,7 @@ const translations = {
             reasoning: "तर्क"
         },
         clinicalTrialFinder: {
-            title: 'क्लिनिकल ट्रायल फाइंडर (भारत) 🇮🇳',
+            title: 'क्लिनिकल ट्रायल फाइंडर (भारत) ',
             subtitle: 'एखाद्या स्थिती किंवा औषधावर आधारित भारतातील चालू असलेल्या क्लिनिकल चाचण्या शोधा.',
             searching: 'शोधत आहे...',
             searchButton: 'शोधा',
@@ -1084,7 +1084,7 @@ const translations = {
             }
         },
         otcGuide: {
-            title: 'ओटीसी औषध सुरक्षा मार्गदर्शक ✅',
+            title: 'ओटीसी औषध सुरक्षा मार्गदर्शक ',
             subtitle: 'कोणत्याही ओव्हर-द-काउंटर औषधासाठी सुरक्षा मार्गदर्शक मिळवा.',
             drugPlaceholder: 'उदा., आयबुप्रोफेन',
             gettingGuide: 'मार्गदर्शक मिळवत आहे...',
@@ -1099,29 +1099,29 @@ const translations = {
                 sideEffects: 'दुष्परिणाम',
                 interactions: 'परस्परक्रिया',
             },
-            rulesTitle: 'ओटीसी वापराचे ५ सुवर्ण नियम ⭐',
+            rulesTitle: 'ओटीसी वापराचे ५ सुवर्ण नियम ',
             rules: [
-                { emoji: '📖', title: 'लेबल वाचा', description: 'कोणतेही ओटीसी औषध घेण्यापूर्वी नेहमी सर्व घटक आणि दिशानिर्देश वाचा.' },
-                { emoji: '⚠️', title: 'परस्परसंवाद तपासा', description: 'ओटीसी औषधे तुमच्या प्रिस्क्रिप्शन औषधांशी संवाद साधणार नाहीत याची पडताळणी करा.' },
-                { emoji: '📏', title: 'डोसचे पालन करा', description: 'शिफारस केलेल्या डोसपेक्षा जास्त घेऊ नका. जास्त नेहमीच चांगले नसते आणि धोकादायक असू शकते.' },
+                { emoji: '', title: 'लेबल वाचा', description: 'कोणतेही ओटीसी औषध घेण्यापूर्वी नेहमी सर्व घटक आणि दिशानिर्देश वाचा.' },
+                { emoji: '️', title: 'परस्परसंवाद तपासा', description: 'ओटीसी औषधे तुमच्या प्रिस्क्रिप्शन औषधांशी संवाद साधणार नाहीत याची पडताळणी करा.' },
+                { emoji: '', title: 'डोसचे पालन करा', description: 'शिफारस केलेल्या डोसपेक्षा जास्त घेऊ नका. जास्त नेहमीच चांगले नसते आणि धोकादायक असू शकते.' },
                 { emoji: '⏰', title: 'वेळेची मर्यादा', description: 'शिफारस केलेल्या वेळेपेक्षा जास्त काळ ओटीसी औषधे वापरू नका. लक्षणे कायम राहिल्यास डॉक्टरांना भेटा.' },
-                { emoji: '👨‍⚕️', title: 'व्यावसायिकांना विचारा', description: 'तुमचे काही प्रश्न किंवा चिंता असल्यास फार्मासिस्ट किंवा डॉक्टरांचा सल्ला घ्या.' },
+                { emoji: '‍️', title: 'व्यावसायिकांना विचारा', description: 'तुमचे काही प्रश्न किंवा चिंता असल्यास फार्मासिस्ट किंवा डॉक्टरांचा सल्ला घ्या.' },
             ]
         },
         pharmacistChatbot: {
-            title: 'व्हर्च्युअल फार्मासिस्ट चॅट 🧑‍⚕️',
+            title: 'व्हर्च्युअल फार्मासिस्ट चॅट ‍️',
             subtitle: 'हे केवळ माहितीच्या उद्देशाने आहे.',
             welcomeMessage: 'नमस्कार! मी तुमचा एआय फार्मासिस्ट आहे. मी आज तुमच्या औषधांच्या प्रश्नांमध्ये कशी मदत करू शकेन?',
             inputPlaceholder: 'तुमचा प्रश्न टाइप करा, किंवा माइक वापरा...',
-            recording: 'ऑडिओ रेकॉर्ड होत आहे... 🎤',
-            transcribing: 'ऑडिओचे प्रतिलेखन होत आहे... ✍️',
+            recording: 'ऑडिओ रेकॉर्ड होत आहे... ',
+            transcribing: 'ऑडिओचे प्रतिलेखन होत आहे... ️',
             startRecording: 'रेकॉर्डिंग सुरू करा',
             stopRecording: 'रेकॉर्डिंग थांबवा',
             micError: 'मायक्रोफोन प्रवेश नाकारला. कृपया तुमच्या ब्राउझर सेटिंग्जमध्ये मायक्रोफोन प्रवेशास अनुमती द्या.',
             transcriptionError: 'प्रतिलेखन अयशस्वी. कृपया पुन्हा प्रयत्न करा.',
         },
         livePharmacist: {
-            title: 'लाइव्ह फार्मासिस्ट व्हॉइस चॅट 🎙️',
+            title: 'लाइव्ह फार्मासिस्ट व्हॉइस चॅट ️',
             subtitle: 'त्वरित उत्तरांसाठी थेट आमच्या एआय फार्मासिस्टशी बोला.',
             start: 'संभाषण सुरू करा',
             stop: 'संभाषण समाप्त करा',
@@ -1135,7 +1135,7 @@ const translations = {
             bot: 'एआय फार्मासिस्ट'
         },
         ttsGenerator: {
-            title: 'टेक्स्ट-टू-स्पीच जनरेटर 🔊',
+            title: 'टेक्स्ट-टू-स्पीच जनरेटर ',
             subtitle: 'मजकूराचे उच्च-गुणवत्तेच्या बोललेल्या ऑडिओमध्ये रूपांतर करा.',
             placeholder: 'येथे मजकूर प्रविष्ट करा...',
             voiceLabel: 'एक आवाज निवडा',

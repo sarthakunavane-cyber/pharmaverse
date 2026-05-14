@@ -16,6 +16,7 @@ export class TextToSpeech {
   isSpeaking = false;
   selectedVoice: SpeechSynthesisVoice | null = null;
   voices: SpeechSynthesisVoice[] = [];
+  ttsLanguage = 'all';
   
   ngOnInit() {
       this.populateVoiceList();
@@ -26,12 +27,20 @@ export class TextToSpeech {
 
   populateVoiceList() {
       if (typeof window === 'undefined') return;
-      this.voices = window.speechSynthesis.getVoices().filter(v => 
-          v.lang.startsWith(this.translation.language) || v.lang.startsWith('en')
-      );
-      if (this.voices.length > 0 && !this.selectedVoice) {
+      const allVoices = window.speechSynthesis.getVoices();
+      
+      this.voices = allVoices.filter(v => {
+          if (this.ttsLanguage === 'all') return true;
+          return v.lang.toLowerCase().startsWith(this.ttsLanguage.toLowerCase());
+      });
+      
+      if (this.voices.length > 0 && (!this.selectedVoice || !this.voices.includes(this.selectedVoice))) {
           this.selectedVoice = this.voices[0];
       }
+  }
+
+  onLanguageFilterChange() {
+      this.populateVoiceList();
   }
 
   handleSpeak() {

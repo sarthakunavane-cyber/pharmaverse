@@ -18,25 +18,25 @@ import { environment } from '../../../environments/environment';
                  <label class="block text-sm font-medium text-gray-200 mb-2">How would you rate your experience?</label>
                  <div class="flex gap-4">
                      <button type="button" 
-                             (click)="rating = '😞'" 
-                             [class.scale-125]="rating === '😞'"
+                             (click)="rating = ''" 
+                             [class.scale-125]="rating === ''"
                              class="text-3xl hover:scale-110 transition filter"
-                             [class.brightness-125]="rating === '😞'">😞</button>
+                             [class.brightness-125]="rating === ''"></button>
                      <button type="button" 
-                             (click)="rating = '😐'" 
-                             [class.scale-125]="rating === '😐'"
+                             (click)="rating = ''" 
+                             [class.scale-125]="rating === ''"
                              class="text-3xl hover:scale-110 transition filter"
-                             [class.brightness-125]="rating === '😐'">😐</button>
+                             [class.brightness-125]="rating === ''"></button>
                      <button type="button" 
-                             (click)="rating = '🙂'" 
-                             [class.scale-125]="rating === '🙂'"
+                             (click)="rating = ''" 
+                             [class.scale-125]="rating === ''"
                              class="text-3xl hover:scale-110 transition filter"
-                             [class.brightness-125]="rating === '🙂'">🙂</button>
+                             [class.brightness-125]="rating === ''"></button>
                      <button type="button" 
-                             (click)="rating = '🤩'" 
-                             [class.scale-125]="rating === '🤩'"
+                             (click)="rating = ''" 
+                             [class.scale-125]="rating === ''"
                              class="text-3xl hover:scale-110 transition filter"
-                             [class.brightness-125]="rating === '🤩'">🤩</button>
+                             [class.brightness-125]="rating === ''"></button>
                  </div>
             </div>
             
@@ -64,7 +64,7 @@ import { environment } from '../../../environments/environment';
         </form>
         
         <div *ngIf="submitted" class="text-center py-10 animate-fade-in">
-             <div class="text-5xl mb-4">🙌</div>
+             <div class="text-5xl mb-4"></div>
              <h3 class="text-2xl font-bold text-gray-100 mb-2">Thank you!</h3>
              <p class="text-gray-300">Your feedback helps us make PharmaVerse better for everyone.</p>
              <button (click)="submitted = false; resetForm()" class="mt-6 text-medical-cyan hover:underline">Send another response</button>
