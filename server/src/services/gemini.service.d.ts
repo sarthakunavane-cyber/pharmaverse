@@ -1,0 +1,30 @@
+import { Chat } from "@google/genai";
+import { InteractionResult, PrescriptionAnalysisResult, PillIdentification, DoseResult, ClinicalTrial, OtcGuide, DrugDetails, MedicationGuide, SymptomAnalysisResult } from '../types';
+export declare const fetchDrugHerbInteraction: (drugName: string, herbName: string, language: string) => Promise<InteractionResult>;
+export declare const fetchDrugDrugInteraction: (drug1: string, drug2: string, language: string) => Promise<InteractionResult>;
+export declare const fetchDrugSupplementInteraction: (drug: string, supplement: string, language: string) => Promise<InteractionResult>;
+export declare const fetchDrugFoodInteraction: (drug: string, food: string, language: string) => Promise<InteractionResult>;
+export declare const fetchPolypharmacyInteraction: (drugs: string[], language: string) => Promise<InteractionResult[]>;
+export declare const extractPrescriptionDetails: (imageData: string, mimeType: string, language: string) => Promise<PrescriptionAnalysisResult>;
+export declare const getDrugInformation: (drugName: string, language: string) => Promise<DrugDetails>;
+export declare const identifyPill: (imageData: string, mimeType: string, language: string) => Promise<PillIdentification>;
+export declare const identifyPillByName: (pillName: string, language: string) => Promise<PillIdentification>;
+export declare const identifyPillFromPackage: (imageData: string, mimeType: string, language: string) => Promise<PillIdentification>;
+export declare const calculateDose: (details: {
+    drug: string;
+    age: string;
+    weight: string;
+    gender: string;
+    indication: string;
+    renalStatus: string;
+    hepaticStatus: string;
+}, language: string) => Promise<DoseResult>;
+export declare const analyzeSymptoms: (symptoms: string, language: string) => Promise<SymptomAnalysisResult>;
+export declare const findClinicalTrials: (query: string, language: string) => Promise<ClinicalTrial[]>;
+export declare const getOtcGuide: (drugName: string, language: string) => Promise<OtcGuide>;
+export declare const generateMedicationGuide: (drugName: string, language: string) => Promise<MedicationGuide>;
+export declare const createChat: (language: string) => Chat;
+export declare const transcribeAudio: (audioData: string, mimeType: string) => Promise<string>;
+export declare const generateSpeech: (text: string, voice: string) => Promise<string>;
+export declare const translateText: (text: string, targetLanguage: "en" | "hi" | "mr") => Promise<string>;
+//# sourceMappingURL=gemini.service.d.ts.map
