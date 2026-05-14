@@ -2,7 +2,7 @@ import { environment } from '../../../environments/environment';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { InteractionResult, PrescriptionAnalysisResult, SymptomAnalysisResult } from '../models/models';
+import { InteractionResult, PrescriptionAnalysisResult, SymptomAnalysisResult, DrugDetails } from '../models/models';
 
 @Injectable({ providedIn: 'root' })
 export class GeminiService {
@@ -20,17 +20,19 @@ export class GeminiService {
   }
 
   // Placeholder for others to preserve structure
-  async fetchDrugSupplementInteraction(drug1: string, supp: string, language: string): Promise<InteractionResult> {
-    return this.fetchDrugDrugInteraction(drug1, supp, language);
+  async fetchDrugSupplementInteraction(drug: string, supplement: string, language: string): Promise<InteractionResult> {
+    const res = await firstValueFrom(this.http.post<InteractionResult>(`${this.baseUrl}/interactions/supplement`, { drug, supplement, language }));
+    return res as InteractionResult;
   }
   
-  async fetchDrugFoodInteraction(drug1: string, food: string, language: string): Promise<InteractionResult> {
-    return this.fetchDrugDrugInteraction(drug1, food, language);
+  async fetchDrugFoodInteraction(drug: string, food: string, language: string): Promise<InteractionResult> {
+    const res = await firstValueFrom(this.http.post<InteractionResult>(`${this.baseUrl}/interactions/food`, { drug, food, language }));
+    return res as InteractionResult;
   }
 
   async fetchPolypharmacyInteraction(drugs: string[], language: string): Promise<InteractionResult[]> {
-    // simplified for architecture map
-    return [await this.fetchDrugDrugInteraction(drugs[0], drugs[1] || 'Unknown', language)];
+    const res = await firstValueFrom(this.http.post<InteractionResult[]>(`${this.baseUrl}/interactions/polypharmacy`, { drugs, language }));
+    return res as InteractionResult[];
   }
 
   async extractPrescriptionDetails(imageData: string, mimeType: string, language: string): Promise<PrescriptionAnalysisResult> {

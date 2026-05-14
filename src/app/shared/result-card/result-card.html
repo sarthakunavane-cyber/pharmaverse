@@ -1,8 +1,22 @@
-<div *ngIf="result" class="glass-panel  rounded-xl shadow-lg border-t-8 {{ getCategoryStyle(result.interactionCategory).borderColor }} overflow-hidden animate-fade-in mb-4">
+<div *ngIf="result" class="glass-panel rounded-xl shadow-lg border-t-8 {{ getCategoryStyle(result.interactionCategory).borderColor }} overflow-hidden animate-fade-in mb-6">
     <div class="p-6">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <h3 class="text-xl font-bold text-gray-100  text-center sm:text-left mb-4 sm:mb-0">{{ result.interactingPair }}</h3>
+        <h3 class="text-xl font-bold text-gray-100 text-center sm:text-left mb-4 sm:mb-0">{{ result.interactingPair }}</h3>
         <div class="px-4 py-2 rounded-full {{ getCategoryStyle(result.interactionCategory).textColor }} {{ getCategoryStyle(result.interactionCategory).bgColor }} font-bold text-sm flex items-center justify-center">
+            <div class="w-6 h-6 mr-2">
+                <!-- Safe Icon -->
+                <svg *ngIf="result.interactionCategory === 'SAFE_TO_USE_TOGETHER'" xmlns="http://www.w3.org/2000/svg" class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <!-- Caution Icon -->
+                <svg *ngIf="result.interactionCategory === 'USE_WITH_CAUTION'" xmlns="http://www.w3.org/2000/svg" class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <!-- Avoid Icon -->
+                <svg *ngIf="result.interactionCategory === 'AVOID_USING_TOGETHER'" xmlns="http://www.w3.org/2000/svg" class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
             {{ getCategoryStyle(result.interactionCategory).title }}
         </div>
       </div>
@@ -10,46 +24,51 @@
     
     <div class="px-6 pb-6 space-y-6">
       <div>
-        <h4 class="font-bold text-gray-100  mb-2">{{ translation.t('resultCard.summary') }}</h4>
-        <p class="text-gray-300 ">{{ result.summary }}</p>
+        <h4 class="font-bold text-gray-100 mb-2">{{ translation.t('resultCard.summary') }}</h4>
+        <p class="text-gray-300 leading-relaxed">{{ result.summary }}</p>
       </div>
       
       <div class="grid md:grid-cols-3 gap-4">
-        <div class="  p-4 rounded-lg text-center">
-          <h4 class="font-semibold text-sm text-gray-300  mb-1">{{ translation.t('resultCard.severity') }}</h4>
+        <div class="bg-white/5 p-4 rounded-lg text-center border border-white/10">
+          <h4 class="font-semibold text-xs text-gray-400 uppercase tracking-wider mb-1">{{ translation.t('resultCard.severity') }}</h4>
           <p class="font-bold text-lg {{ getCategoryStyle(result.interactionCategory).textColor }}">{{ result.severity }}</p>
         </div>
-        <div class="  p-4 rounded-lg text-center">
-          <h4 class="font-semibold text-sm text-gray-300  mb-1">{{ translation.t('resultCard.evidenceLevel') }}</h4>
-          <p class="font-bold text-lg text-gray-100 ">{{ result.evidenceLevel }}</p>
+        <div class="bg-white/5 p-4 rounded-lg text-center border border-white/10">
+          <h4 class="font-semibold text-xs text-gray-400 uppercase tracking-wider mb-1">{{ translation.t('resultCard.evidenceLevel') }}</h4>
+          <p class="font-bold text-lg text-gray-100">{{ result.evidenceLevel }}</p>
         </div>
-        <div class="  p-4 rounded-lg">
-          <h4 class="font-semibold text-sm text-center text-gray-300  mb-2">{{ translation.t('resultCard.interactionScore') }}</h4>
+        <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+          <h4 class="font-semibold text-xs text-center text-gray-400 uppercase tracking-wider mb-2">{{ translation.t('resultCard.interactionScore') }}</h4>
           <div class="flex items-center">
             <span class="font-bold text-lg mr-3 {{ getCategoryStyle(result.interactionCategory).textColor }}">{{ result.interactionScore || 0 }}</span>
-            <div class="w-full bg-medical-blue/30  rounded-full h-2.5">
-                <div class="{{ getScoreColor(result.interactionScore || 0) }} h-2.5 rounded-full" [style.width]="(result.interactionScore || 0) + '%'"></div>
+            <div class="w-full bg-medical-blue/20 rounded-full h-2.5">
+                <div class="{{ getScoreColor(result.interactionScore || 0) }} h-2.5 rounded-full shadow-glow-sm" [style.width]="(result.interactionScore || 0) + '%'"></div>
             </div>
           </div>
         </div>
       </div>
   
       <div>
-        <h4 class="font-bold text-gray-100  mb-2">{{ translation.t('resultCard.mechanism') }}</h4>
-        <p class="text-gray-300 ">{{ result.mechanism }}</p>
+        <h4 class="font-bold text-gray-100 mb-2">{{ translation.t('resultCard.mechanism') }}</h4>
+        <p class="text-gray-300 text-sm italic border-l-2 border-medical-cyan/30 pl-4">{{ result.mechanism }}</p>
       </div>
   
       <div>
-        <h4 class="font-bold text-gray-100  mb-2">{{ translation.t('resultCard.sideEffects') }}</h4>
-        <p class="text-gray-300 ">{{ result.sideEffects }}</p>
+        <h4 class="font-bold text-gray-100 mb-2">{{ translation.t('resultCard.sideEffects') }}</h4>
+        <p class="text-gray-300 text-sm">{{ result.sideEffects }}</p>
       </div>
       
       <div *ngIf="result.alternatives && result.alternatives.trim() && (result.severity === Severity.Moderate || result.severity === Severity.Major)" 
-           class="glass-panel  p-4 rounded-lg border-l-4 border-green-400 dark:border-green-700">
+           class="bg-green-900/20 p-4 rounded-lg border-l-4 border-green-500/50">
           <div class="flex items-center mb-2">
-              <h4 class="font-bold text-green-800 dark:text-green-200">🛡️ {{ translation.t('resultCard.saferAlternatives') }}</h4>
+              <div class="w-5 h-5 mr-2 text-green-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+              </div>
+              <h4 class="font-bold text-green-400 text-sm">{{ translation.t('resultCard.saferAlternatives') }}</h4>
           </div>
-          <p class="text-green-700 dark:text-green-300 text-sm">{{ result.alternatives }}</p>
+          <p class="text-green-300/80 text-sm leading-relaxed">{{ result.alternatives }}</p>
       </div>
     </div>
 </div>

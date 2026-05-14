@@ -25,23 +25,23 @@
             </textarea>
         </div>
 
-        <div *ngIf="interactionType !== 'polypharmacy'" class="grid md:grid-cols-2 gap-6">
+        <div *ngIf="interactionType !== 'polypharmacy' && currentLabels" class="grid md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-gray-200  mb-1">Drug 1</label>
+              <label class="block text-sm font-medium text-gray-200  mb-1">{{ translation.t('interactionChecker.' + currentLabels.l1) }}</label>
               <input
                 type="text"
                 [(ngModel)]="input1" name="input1"
                 class="w-full px-4 py-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 glass-panel  text-white "
-                placeholder="Enter item 1"
+                [placeholder]="translation.t('interactionChecker.' + currentLabels.p1)"
               />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-200  mb-1">Drug 2 / Herb / Supplement</label>
+              <label class="block text-sm font-medium text-gray-200  mb-1">{{ translation.t('interactionChecker.' + currentLabels.l2) }}</label>
               <input
                 type="text"
                 [(ngModel)]="input2" name="input2"
                 class="w-full px-4 py-2 border border-medical-cyan/30 dark:border-medical-cyan/30 rounded-lg shadow-sm focus:ring-orange-500 focus:border-orange-500 glass-panel  text-white "
-                placeholder="Enter item 2"
+                [placeholder]="translation.t('interactionChecker.' + currentLabels.p2)"
               />
             </div>
         </div>
@@ -52,7 +52,7 @@
           class="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:from-gray-400 disabled:to-gray-500 transition-all transform hover:scale-105"
         >
           <span *ngIf="loading">{{ translation.t('interactionChecker.checking') }}</span>
-          <span *ngIf="!loading">{{ translation.t('interactionChecker.checkButton') }}</span>
+          <span *ngIf="!loading">🔍 {{ translation.t('interactionChecker.checkButton') }}</span>
         </button>
       </form>
     </div>
@@ -75,6 +75,36 @@
         <h3 class="text-2xl font-bold text-center text-gray-100 ">{{ translation.t('interactionChecker.polypharmacyResultsTitle') }}</h3>
         <div *ngFor="let res of result">
              <app-result-card [result]="res"></app-result-card>
+        </div>
+    </div>
+
+    <!-- Examples Section -->
+    <div *ngIf="examples && examples.length > 0 && !loading && interactionType !== 'polypharmacy'" class="mt-16">
+        <h3 class="text-2xl font-bold text-gray-100 mb-6 text-center">{{ translation.t('interactionChecker.examplesTitle') }}</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div *ngFor="let example of examples" class="glass-panel p-6 rounded-xl border border-medical-cyan/20 hover:border-medical-cyan/50 transition-all">
+                <h4 class="font-bold text-lg text-red-400 mb-2">{{ example.input1 }} + {{ example.input2 }}</h4>
+                <p class="text-gray-300 text-sm mb-4 line-clamp-3">{{ example.explanation }}</p>
+                <button (click)="handleExampleClick(example)" class="text-medical-cyan hover:text-white text-sm font-bold flex items-center transition-colors">
+                    {{ translation.t('interactionChecker.tryExample') }} →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="examples && examples.length > 0 && !loading && interactionType === 'polypharmacy'" class="mt-16">
+        <h3 class="text-2xl font-bold text-gray-100 mb-6 text-center">{{ translation.t('interactionChecker.examplesTitle') }}</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div *ngFor="let example of examples" class="glass-panel p-6 rounded-xl border border-medical-cyan/20 hover:border-medical-cyan/50 transition-all">
+                <h4 class="font-bold text-lg text-red-400 mb-2">{{ example.title }}</h4>
+                <div class="bg-slate-900/50 p-3 rounded-lg mb-3">
+                    <pre class="whitespace-pre-wrap font-sans text-gray-300 text-sm">{{ example.drugs }}</pre>
+                </div>
+                <p class="text-gray-400 text-xs mb-4">{{ example.explanation }}</p>
+                <button (click)="handlePolypharmacyExampleClick(example)" class="text-medical-cyan hover:text-white text-sm font-bold flex items-center transition-colors">
+                    {{ translation.t('interactionChecker.tryExample') }} →
+                </button>
+            </div>
         </div>
     </div>
   </div>

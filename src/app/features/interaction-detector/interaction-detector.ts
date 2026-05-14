@@ -36,7 +36,23 @@ export class InteractionDetector implements OnInit {
     { type: 'polypharmacy', labelKey: 'polypharmacy' },
   ];
 
+  labels = {
+    drugHerb: { l1: 'drugLabel', p1: 'drugPlaceholder', l2: 'herbLabel', p2: 'herbPlaceholder'},
+    drugDrug: { l1: 'drug1Label', p1: 'drug1Placeholder', l2: 'drug2Label', p2: 'drug2Placeholder'},
+    drugSupplement: { l1: 'drugLabel', p1: 'drugPlaceholder', l2: 'supplementLabel', p2: 'supplementPlaceholder'},
+    drugFood: { l1: 'drugLabel', p1: 'drugPlaceholder', l2: 'foodLabel', p2: 'foodPlaceholder'},
+  };
+
   ngOnInit() {}
+
+  get currentLabels() {
+    if (this.interactionType === 'polypharmacy') return null;
+    return this.labels[this.interactionType as keyof typeof this.labels];
+  }
+
+  get examples() {
+    return this.translation.getLocalizedContent(`interactionChecker.examples.${this.interactionType}`);
+  }
 
   handleModeChange(mode: InteractionType) {
     if (this.loading) return;
@@ -46,6 +62,22 @@ export class InteractionDetector implements OnInit {
     this.polypharmacy = '';
     this.result = null;
     this.error = null;
+  }
+
+  handleExampleClick(example: {input1: string; input2: string}) {
+    this.input1 = example.input1;
+    this.input2 = example.input2;
+    this.polypharmacy = '';
+    this.handleFormSubmit();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  handlePolypharmacyExampleClick(example: { drugs: string; }) {
+    this.input1 = '';
+    this.input2 = '';
+    this.polypharmacy = example.drugs;
+    this.handleFormSubmit();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   validateInput(): string | null {
@@ -65,18 +97,36 @@ export class InteractionDetector implements OnInit {
 
   calculateInteractionScore(res: InteractionResult): number {
     let score = 0;
+    
+    // Severity mapping
     switch (res.severity) {
         case Severity.Major: score += 40; break;
         case Severity.Moderate: score += 20; break;
         case Severity.Minor: score += 5; break;
     }
-    const evidence = res.evidenceLevel?.toLowerCase() || '';
-    if (evidence.includes('level a') || evidence.includes('strong')) score += 20;
-    else if (evidence.includes('level b') || evidence.includes('moderate')) score += 10;
-    else if (evidence.includes('level c') || evidence.includes('weak')) score += 5;
     
-    // Simplification for the TS compiler, just adding 5 for each risk factor
-    res.riskFactors?.forEach(() => score += 5);
+    // Evidence Level mapping
+    const evidence = res.evidenceLevel?.toLowerCase() || '';
+    if (evidence.includes('level a') || evidence.includes('strong') || evidence.includes('high')) score += 20;
+    else if (evidence.includes('level b') || evidence.includes('moderate')) score += 10;
+    else if (evidence.includes('level c') || evidence.includes('weak') || evidence.includes('limited')) score += 5;
+
+    // Risk Factor mapping
+    const riskFactorScores: Record<string, number> = {
+        'QT_PROLONGATION': 15,
+        'BLEEDING_RISK': 15,
+        'SEROTONIN_SYNDROME': 20,
+        'CNS_DEPRESSION': 15,
+        'HYPOTENSION': 10,
+        'HYPERKALEMIA': 10,
+        'NEPHROTOXICITY': 15,
+        'HEPATOTOXICITY': 15
+    };
+
+    res.riskFactors?.forEach(factor => {
+        score += riskFactorScores[factor.toUpperCase()] || 5;
+    });
+
     return Math.min(score, 100);
   }
 
