@@ -9,7 +9,7 @@ const translations = {
         },
         nav: {
           Educational: 'Learn ',
-          DoctorsCorner: 'For Doctors 🩺',
+          DoctorsCorner: 'For Doctors ',
           References: 'References ',
         },
         language: {
@@ -44,7 +44,7 @@ const translations = {
         pages: {
             InteractionDetector: 'Drug Interaction Checker ',
             PrescriptionReader: 'Smart Prescription Reader ',
-            SymptomChecker: 'AI Symptom Checker 🩺',
+            SymptomChecker: 'AI Symptom Checker ',
             PillIdentifier: 'AI Pill Identifier ',
             DoseCalculator: 'AI Dose Calculator ',
             PharmacistChatbot: 'Virtual Pharmacist Chat ',
@@ -268,7 +268,7 @@ const translations = {
             }
         },
         symptomChecker: {
-            title: 'AI Symptom Checker 🩺',
+            title: 'AI Symptom Checker ',
             subtitle: 'Describe your symptoms to get an AI-powered preliminary analysis.',
             inputLabel: 'Describe your symptoms',
             inputPlaceholder: 'e.g., I have a headache, a fever of 101°F, and a sore throat...',
@@ -391,7 +391,7 @@ const translations = {
         },
         nav: {
             Educational: 'जानें ',
-            DoctorsCorner: 'डॉक्टरों के लिए 🩺',
+            DoctorsCorner: 'डॉक्टरों के लिए ',
             References: 'संदर्भ ',
         },
         language: {
@@ -425,7 +425,7 @@ const translations = {
         pages: {
             InteractionDetector: 'ड्रग इंटरेक्शन चेकर ',
             PrescriptionReader: 'स्मार्ट प्रिस्क्रिप्शन रीडर ',
-            SymptomChecker: 'एआई लक्षण चेकर 🩺',
+            SymptomChecker: 'एआई लक्षण चेकर ',
             PillIdentifier: 'एआई गोली पहचानकर्ता ',
             DoseCalculator: 'एआई खुराक कैलकुलेटर ',
             PharmacistChatbot: 'वर्चुअल फार्मासिस्ट चैट ',
@@ -665,7 +665,7 @@ const translations = {
             }
         },
         symptomChecker: {
-            title: 'एआई लक्षण चेकर 🩺',
+            title: 'एआई लक्षण चेकर ',
             subtitle: 'एआई-संचालित प्रारंभिक विश्लेषण प्राप्त करने के लिए अपने लक्षणों का वर्णन करें।',
             inputLabel: 'अपने लक्षणों का वर्णन करें',
             inputPlaceholder: 'उदा., मुझे सिरदर्द, 101°F बुखार, और गले में खराश है...',
@@ -774,7 +774,7 @@ const translations = {
         },
         nav: {
             Educational: 'शिका ',
-            DoctorsCorner: 'डॉक्टरांसाठी 🩺',
+            DoctorsCorner: 'डॉक्टरांसाठी ',
             References: 'संदर्भ ',
         },
         language: {
@@ -808,7 +808,7 @@ const translations = {
         pages: {
             InteractionDetector: 'ड्रग इंटरॅक्शन चेकर ',
             PrescriptionReader: 'स्मार्ट प्रिस्क्रिप्शन रीडर ',
-            SymptomChecker: 'एआय लक्षण तपासक 🩺',
+            SymptomChecker: 'एआय लक्षण तपासक ',
             PillIdentifier: 'एआय गोळी ओळखकर्ता ',
             DoseCalculator: 'एआय डोस कॅल्क्युलेटर ',
             PharmacistChatbot: 'व्हर्च्युअल फार्मासिस्ट चॅट ',
@@ -1048,7 +1048,7 @@ const translations = {
             }
         },
         symptomChecker: {
-            title: 'एआय लक्षण तपासक 🩺',
+            title: 'एआय लक्षण तपासक ',
             subtitle: 'एआय-चालित प्राथमिक विश्लेषण मिळविण्यासाठी तुमच्या लक्षणांचे वर्णन करा.',
             inputLabel: 'तुमच्या लक्षणांचे वर्णन करा',
             inputPlaceholder: 'उदा., मला डोकेदुखी, 101°F ताप आणि घसा खवखवत आहे...',

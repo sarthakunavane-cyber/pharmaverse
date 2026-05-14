@@ -16,27 +16,19 @@ import { environment } from '../../../environments/environment';
         <form *ngIf="!submitted" (ngSubmit)="submit()" class="space-y-6">
             <div>
                  <label class="block text-sm font-medium text-gray-200 mb-2">How would you rate your experience?</label>
-                 <div class="flex gap-4">
-                     <button type="button" 
-                             (click)="rating = ''" 
-                             [class.scale-125]="rating === ''"
-                             class="text-3xl hover:scale-110 transition filter"
-                             [class.brightness-125]="rating === ''"></button>
-                     <button type="button" 
-                             (click)="rating = ''" 
-                             [class.scale-125]="rating === ''"
-                             class="text-3xl hover:scale-110 transition filter"
-                             [class.brightness-125]="rating === ''"></button>
-                     <button type="button" 
-                             (click)="rating = ''" 
-                             [class.scale-125]="rating === ''"
-                             class="text-3xl hover:scale-110 transition filter"
-                             [class.brightness-125]="rating === ''"></button>
-                     <button type="button" 
-                             (click)="rating = ''" 
-                             [class.scale-125]="rating === ''"
-                             class="text-3xl hover:scale-110 transition filter"
-                             [class.brightness-125]="rating === ''"></button>
+                 <div class="flex gap-2" (mouseleave)="hoverRating = 0">
+                     <button *ngFor="let star of [1, 2, 3, 4, 5]" 
+                             type="button" 
+                             (click)="rating = star" 
+                             (mouseenter)="hoverRating = star"
+                             class="transition-all transform hover:scale-110 focus:outline-none focus:ring-0">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" 
+                              [attr.fill]="(hoverRating >= star || (!hoverRating && rating >= star)) ? 'currentColor' : 'none'" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                              class="text-yellow-400">
+                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                         </svg>
+                     </button>
                  </div>
             </div>
             
@@ -78,7 +70,8 @@ export class Feedback {
     submitted = false;
     isSubmitting = false;
     
-    rating = '';
+    rating = 0;
+    hoverRating = 0;
     feature = 'Prescription Reader';
     comments = '';
 
@@ -87,7 +80,7 @@ export class Feedback {
         
         this.isSubmitting = true;
         const payload = {
-            rating: this.rating,
+            rating: this.rating.toString(),
             feature: this.feature,
             comments: this.comments
         };
@@ -107,7 +100,8 @@ export class Feedback {
     }
 
     resetForm() {
-        this.rating = '';
+        this.rating = 0;
+        this.hoverRating = 0;
         this.feature = 'Prescription Reader';
         this.comments = '';
     }
