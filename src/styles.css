@@ -1,6 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-lora {
+  font-family: 'Lora', serif !important;
+}
+
+input, textarea, select, 
+.glass-panel p, .glass-panel li, .glass-panel span, .glass-panel h3, .glass-panel h4 {
+  font-family: 'Lora', serif !important;
+}
 
 /* Custom global styles can go here */
 html, body { height: 100%; overflow-x: hidden; }
