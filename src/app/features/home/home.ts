@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 import { TranslationService } from '../../core/services/translation.service';
 import { GsapTiltDirective } from '../../shared/directives/gsap-tilt.directive';
 import { GsapRevealDirective } from '../../shared/directives/gsap-reveal.directive';
+import { Feedback } from '../feedback/feedback';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, GsapTiltDirective, GsapRevealDirective],
+  imports: [CommonModule, RouterModule, GsapTiltDirective, GsapRevealDirective, Feedback],
   templateUrl: './home.html'
 })
 export class Home implements OnInit, OnDestroy {
